@@ -8,12 +8,13 @@ export default function Card({
   // Props (styles)
   elemBase = "card",
   elemHeading = "h2",
+  regionBase = "",
   regionHeading = "",
   background = "bg-slate-800",
 }) {
   return (
       <>
-        <a href={href} className={[`${elemBase} ${background}`]}>
+        <a href={href} className={[`${elemBase} ${background} ${regionBase}`]}>
           <h2 className={[`${elemHeading} ${regionHeading}`]}>{title}</h2>
           <p>{body}</p>
         </a>

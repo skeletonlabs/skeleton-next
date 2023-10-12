@@ -1,0 +1,30 @@
+---
+interface Props {
+  // Props (settings)
+  href: string;
+  title: string;
+  body: string;
+  // Props (styles)
+  elemBase?: string;
+  elemHeading?: string;
+  regionHeading?: string;
+  background?: string;
+}
+
+const {
+  // Props (settings)
+  href,
+  title,
+  body,
+  // Props (styles)
+  elemBase = "card",
+  elemHeading = "h2",
+  regionHeading = "",
+  background = "bg-slate-800",
+} = Astro.props;
+---
+
+<a {href} class:list={[elemBase, background]}>
+  <h2 class:list={[elemHeading, regionHeading]}>{title}</h2>
+  <p>{body}</p>
+</a>

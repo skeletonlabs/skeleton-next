@@ -1,0 +1,31 @@
+html,
+body {
+  @apply h-full;
+}
+body {
+  @apply bg-slate-900 text-white p-4;
+}
+
+/* Skeleton Elemements */
+
+.card {
+  @apply block p-4 rounded;
+}
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  @apply font-bold;
+}
+.h1 {
+  @apply text-5xl;
+}
+.h2 {
+  @apply text-2xl;
+}
+.h3 {
+  @apply text-lg;
+}

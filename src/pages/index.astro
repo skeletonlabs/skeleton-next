@@ -15,11 +15,11 @@ import CardAstro from "../components/Card.astro";
 
     <!-- Elements -->
     <section class="space-y-4">
-      <h2 class="h2">Skeleton &rarr; Elements</h2>
+      <h2 class="h2">Elements</h2>
       <!-- Element: Card -->
-      <a href="https://skeleton.dev/" class="card bg-pink-500 space-y-2">
+      <a href="https://skeleton.dev/" class="card bg-slate-800 space-y-2">
         <h2 class="h2">Skeleton Element Card</h2>
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Et qui sed hic architecto quidem nam numquam velit cumque officia incidunt, repellat quasi. Totam animi aliquid quos quia enim quibusdam molestias? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Et qui sed hic architecto quidem nam numquam velit cumque officia incidunt, repellat quasi. Totam animi aliquid quos quia enim quibusdam molestias?</p>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Et qui sed hic architecto quidem nam numquam velit cumque officia incidunt, repellat quasi. Totam animi aliquid quos quia enim quibusdam molestias. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Et qui sed hic architecto quidem nam numquam velit cumque officia incidunt, repellat quasi. Totam animi aliquid quos quia enim quibusdam molestias.</p>
       </a>
     </section>
 
@@ -27,15 +27,10 @@ import CardAstro from "../components/Card.astro";
 
     <!-- Components -->
     <section class="space-y-4">
-      <h2 class="h2">Skeleton &rarr; Components</h2>
+      <h2 class="h2">Components</h2>
+
       <!-- Svelte -->
       <h3 class="h3">Svelte</h3>
-      <CardSvelte
-        href="https://svelte.dev/"
-        title="Svelte Card Component (default)"
-        body="This is a Svelte component."
-        background="bg-orange-500"
-      />
       <CardSvelte
         href="https://svelte.dev/"
         title="Svelte Card Component (headless)"
@@ -43,6 +38,13 @@ import CardAstro from "../components/Card.astro";
         elemBase="block"
         background=""
       />
+      <CardSvelte
+        href="https://svelte.dev/"
+        title="Svelte Card Component (default)"
+        body="This is a Svelte component."
+        background="bg-orange-500"
+      />
+
       <!-- React -->
       <h3 class="h3">React</h3>
       <CardReact
@@ -51,6 +53,7 @@ import CardAstro from "../components/Card.astro";
         body="This is a React component."
         background="bg-blue-500"
       />
+
       <!-- Astro -->
       <h3 class="h3">Astro</h3>
       <CardAstro
@@ -59,6 +62,7 @@ import CardAstro from "../components/Card.astro";
         body="This is a Astro component."
         background="bg-indigo-500"
       />
+      
   </section>
 
 </Layout>

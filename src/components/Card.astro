@@ -7,8 +7,8 @@ interface Props {
   // Props (styles)
   elemBase?: string;
   elemHeading?: string;
-  regionBase?: string;
-  regionHeading?: string;
+  restBase?: string;
+  restHeading?: string;
   background?: string;
 }
 
@@ -20,13 +20,13 @@ const {
   // Props (styles)
   elemBase = "card",
   elemHeading = "h2",
-  regionBase = "",
-  regionHeading = "",
+  restBase = "",
+  restHeading = "",
   background = "bg-slate-800",
 } = Astro.props;
 ---
 
-<a {href} class:list={[elemBase, background, regionBase]}>
-  <h2 class:list={[elemHeading, regionHeading]}>{title}</h2>
+<a {href} class:list={[elemBase, background, restBase]}>
+  <h2 class:list={[elemHeading, restHeading]}>{title}</h2>
   <p>{body}</p>
 </a>

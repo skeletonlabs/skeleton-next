@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 // Components
 import CardSvelte from "../components/Card.svelte";
+import CardSvelteHeadless from "../components/CardHeadless.svelte";
 import CardReact from "../components/Card.jsx";
 import CardAstro from "../components/Card.astro";
 ---
@@ -33,16 +34,22 @@ import CardAstro from "../components/Card.astro";
       <h3 class="h3">Svelte</h3>
       <CardSvelte
         href="https://svelte.dev/"
-        title="Svelte Card Component (headless)"
-        body="This is a Svelte component."
-        elemBase="block"
-        background=""
-      />
-      <CardSvelte
-        href="https://svelte.dev/"
-        title="Svelte Card Component (default)"
+        title="Svelte Card Component (legacy)"
         body="This is a Svelte component."
         background="bg-orange-500"
+      />
+      <CardSvelteHeadless
+        href="https://svelte.dev/"
+        title="Svelte Card Component (headless | styled)"
+        body="This is a Svelte component."
+        elemBase="card bg-orange-500"
+        elemHeading="h2"
+      />
+      <CardSvelteHeadless
+        href="https://svelte.dev/"
+        title="Svelte Card Component (headless | unstyled)"
+        body="This is a Svelte component."
+        elemBase="block"
       />
 
       <!-- React -->

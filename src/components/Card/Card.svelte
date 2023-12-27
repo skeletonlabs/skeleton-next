@@ -1,17 +1,25 @@
 <script lang="ts">
-  // Props (settings)
-  export let href: string;
-  export let title: string;
-  export let body: string;
+  interface CardProps {
+    href?: string;
+    title?: string;
+    body?: string;
+    elemBase: string;
+    elemHeading: string;
+    restBase: string;
+    restHeading: string;
+    background: string;
+  }
 
-  // Props (styles)
-  export let elemBase = "card";
-  export let elemHeading = "h2";
-  // Styles: Rest
-  export let restBase = "";
-  export let restHeading = "";
-  // Styles: Shared
-  export let background = "bg-slate-800";
+  let {
+    href,
+    title,
+    body,
+    elemBase = "card",
+    elemHeading = "h2",
+    restBase,
+    restHeading,
+    background = "bg-slate-800",
+  } = $props<CardProps>();
 </script>
 
 <a {href} class="{elemBase} {background} {restBase}">

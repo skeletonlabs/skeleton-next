@@ -1,0 +1,64 @@
+---
+import LayoutRoot from "@layouts/LayoutRoot.astro";
+// Components
+import CardSvelte from "@components/Card/Card.svelte";
+import CardReact from "@components/Card/Card.jsx";
+import CardAstro from "@components/Card/Card.astro";
+---
+
+<!-- prettier-ignore -->
+<LayoutRoot title="Homepage" classList="p-10 space-y-10">
+
+    <header class="space-y-4">
+        <a href="/">&larr; Go back</a>
+        <h1 class="h1">Cards</h1>
+    </header>
+
+    <hr class="block bg-white/10 border-0 h-[1px]" />
+
+    <!-- Elements -->
+    <section class="space-y-4">
+      <h2 class="h2">Elements</h2>
+      <!-- Element: Card -->
+      <a href="https://skeleton.dev/" class="card bg-slate-800 space-y-2">
+        <h2 class="h2">Skeleton Element Card</h2>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Et qui sed hic architecto quidem nam numquam velit cumque officia incidunt, repellat quasi. Totam animi aliquid quos quia enim quibusdam molestias. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Et qui sed hic architecto quidem nam numquam velit cumque officia incidunt, repellat quasi. Totam animi aliquid quos quia enim quibusdam molestias.</p>
+      </a>
+    </section>
+
+    <hr class="block bg-white/10 border-0 h-[1px]" />
+
+    <!-- Components -->
+    <section class="space-y-4">
+      <h2 class="h2">Components</h2>
+
+      <!-- Svelte -->
+      <h3 class="h3">Svelte</h3>
+      <CardSvelte
+        href="https://svelte.dev/"
+        title="Svelte Card Component"
+        body="This is a Svelte component."
+        background="bg-orange-500"
+      />
+
+      <!-- React -->
+      <h3 class="h3">React</h3>
+      <CardReact
+        href="https://react.dev/"
+        title="React Card Component"
+        body="This is a React component."
+        background="bg-blue-500"
+      />
+
+      <!-- Astro -->
+      <h3 class="h3">Astro</h3>
+      <CardAstro
+        href="https://docs.astro.build/"
+        title="Astro Card Component"
+        body="This is a Astro component."
+        background="bg-indigo-500"
+      />
+      
+  </section>
+
+</LayoutRoot>

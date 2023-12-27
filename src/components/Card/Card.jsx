@@ -1,5 +1,7 @@
 // import React, { useState } from 'react';
 
+// FIXME: this needs to be updated to match Svelte example
+
 export default function Card({
   // Props (settings)
   href,

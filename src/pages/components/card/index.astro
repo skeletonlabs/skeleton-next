@@ -1,7 +1,7 @@
 ---
 import LayoutRoot from "@layouts/LayoutRoot.astro";
 // Components
-import CardSvelte from "@components/Card/Card.svelte";
+import DemoSvelte from "./Demo.svelte";
 import CardReact from "@components/Card/Card.jsx";
 import CardAstro from "@components/Card/Card.astro";
 ---
@@ -34,14 +34,9 @@ import CardAstro from "@components/Card/Card.astro";
 
       <!-- Svelte -->
       <h3 class="h3">Svelte</h3>
-      <CardSvelte
-        href="https://svelte.dev/"
-        title="Svelte Card Component"
-        body="This is a Svelte component."
-        background="bg-orange-500"
-      >
-        <p>Foobar</p>
-      </CardSvelte>
+      <!-- NOTE: Astro doesn't understand Snippets; see `DemoSvelte.svelte` -->
+      <!-- @ts-ignore -->
+      <DemoSvelte client:visible />
 
       <!-- React -->
       <h3 class="h3">React</h3>
@@ -50,6 +45,7 @@ import CardAstro from "@components/Card/Card.astro";
         title="React Card Component"
         body="This is a React component."
         background="bg-blue-500"
+        client:visible
       />
 
       <!-- Astro -->

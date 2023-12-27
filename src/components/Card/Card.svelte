@@ -1,28 +1,67 @@
 <script lang="ts">
+  import type { Snippet } from "svelte";
+
+  // NOTE: consider `./types.ts`
   interface CardProps {
-    href?: string;
-    title?: string;
-    body?: string;
-    elemBase: string;
-    elemHeading: string;
-    restBase: string;
-    restHeading: string;
-    background: string;
+    href: string;
+    // Root
+    rootBase?: string;
+    rootBg?: string;
+    rootSpaceY?: string;
+    rootRest?: string;
+    // Title
+    titleBase?: string;
+    titleRest?: string;
+    // Article
+    articleBase?: string;
+    articleRest?: string;
+    // Footer
+    footerBase?: string;
+    footerRest?: string;
+    // Snippets
+    title?: Snippet;
+    article?: Snippet,
+    footer?: Snippet
   }
 
   let {
     href,
+    // Root
+    rootBase = "card",
+    rootBg = "bg-slate-800",
+    rootSpaceY = 'space-y-2',
+    rootRest,
+    // Title
+    titleBase = "h2",
+    titleRest,
+    // Article
+    articleBase,
+    articleRest,
+    // Footer
+    footerBase = "border-t border-white/10 pt-2",
+    footerRest,
+    // Snippets
     title,
-    body,
-    elemBase = "card",
-    elemHeading = "h2",
-    restBase,
-    restHeading,
-    background = "bg-slate-800",
+    article,
+    footer
   } = $props<CardProps>();
 </script>
 
-<a {href} class="{elemBase} {background} {restBase}">
-  <h2 class="{elemHeading} {restHeading}">{@html title}</h2>
-  <p>{@html body}</p>
+<!-- @component A simple card component. -->
+
+<a {href} class="{rootBase} {rootBg} {rootSpaceY} {rootRest}">
+  <!-- Title -->
+  {#if title}
+    <header>
+      <h2 class="{titleBase} {titleRest}">{@render title()}</h2>
+    </header>
+  {/if}
+  <!-- Article -->
+  {#if article}
+    <article class="{articleBase} {articleRest}">{@render article()}</article>
+  {/if}
+  <!-- Footer -->
+  {#if footer}
+    <footer class="{footerBase} {footerRest}">{@render footer()}</footer>
+  {/if}
 </a>

@@ -1,14 +1,13 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import LayoutRoot from "../layouts/LayoutRoot.astro";
 // Components
-import CardSvelte from "../components/Card.svelte";
-import CardSvelteHeadless from "../components/CardHeadless.svelte";
-import CardReact from "../components/Card.jsx";
-import CardAstro from "../components/Card.astro";
+import CardSvelte from "../components/Card/Card.svelte";
+import CardReact from "../components/Card/Card.jsx";
+import CardAstro from "../components/Card/Card.astro";
 ---
 
 <!-- prettier-ignore -->
-<Layout title="Homepage" classList="p-10 space-y-10">
+<LayoutRoot title="Homepage" classList="p-10 space-y-10">
 
     <h1 class="h1">Skeleton NEXT</h1>
 
@@ -26,30 +25,17 @@ import CardAstro from "../components/Card.astro";
 
     <hr class="block bg-white/10 border-0 h-[1px]" />
 
-    <!-- Components -->
+    <!-- Card -->
     <section class="space-y-4">
-      <h2 class="h2">Components</h2>
+      <h2 class="h2">Card</h2>
 
       <!-- Svelte -->
       <h3 class="h3">Svelte</h3>
       <CardSvelte
         href="https://svelte.dev/"
-        title="Svelte Card Component (legacy)"
+        title="Svelte Card Component"
         body="This is a Svelte component."
         background="bg-orange-500"
-      />
-      <CardSvelteHeadless
-        href="https://svelte.dev/"
-        title="Svelte Card Component (headless | styled)"
-        body="This is a Svelte component."
-        elemBase="card bg-orange-500"
-        elemHeading="h2"
-      />
-      <CardSvelteHeadless
-        href="https://svelte.dev/"
-        title="Svelte Card Component (headless | unstyled)"
-        body="This is a Svelte component."
-        elemBase="block"
       />
 
       <!-- React -->
@@ -72,4 +58,4 @@ import CardAstro from "../components/Card.astro";
       
   </section>
 
-</Layout>
+</LayoutRoot>

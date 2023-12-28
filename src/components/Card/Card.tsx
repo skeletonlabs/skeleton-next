@@ -2,7 +2,6 @@ import React from "react";
 
 interface CardProps extends React.PropsWithChildren {
   href: string;
-  // Root
   rootBase?: string;
   rootBg?: string;
   rootSpaceY?: string;

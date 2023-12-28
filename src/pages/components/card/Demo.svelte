@@ -7,6 +7,6 @@
   rootBg="bg-orange-500"
 >
   {#snippet title()}Svelte Card Component{/snippet}
-  {#snippet article()}<p>This is a Svelte snippet.</p>{/snippet}
-  {#snippet footer()}The footer goes here.{/snippet}
+  {#snippet article()}<p>The Svelte component article.</p>{/snippet}
+  {#snippet footer()}The Svelte component footer.{/snippet}
 </CardSvelte>

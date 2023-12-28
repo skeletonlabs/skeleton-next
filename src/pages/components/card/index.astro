@@ -2,7 +2,7 @@
 import LayoutRoot from "@layouts/LayoutRoot.astro";
 // Components
 import DemoSvelte from "./Demo.svelte";
-import CardReact from "@components/Card/Card.jsx";
+import CardReact from "@components/Card/Card.tsx";
 import CardAstro from "@components/Card/Card.astro";
 ---
 
@@ -34,7 +34,7 @@ import CardAstro from "@components/Card/Card.astro";
 
       <!-- Svelte -->
       <h3 class="h3">Svelte</h3>
-      <!-- NOTE: Astro doesn't understand Snippets; see `DemoSvelte.svelte` -->
+      <!-- NOTE: Astro accept Snippets yet; see `DemoSvelte.svelte` -->
       <!-- @ts-ignore -->
       <DemoSvelte client:visible />
 
@@ -42,9 +42,10 @@ import CardAstro from "@components/Card/Card.astro";
       <h3 class="h3">React</h3>
       <CardReact
         href="https://react.dev/"
+        rootBg="bg-blue-500"
         title="React Card Component"
-        body="This is a React component."
-        background="bg-blue-500"
+        article="The React component article."
+        footer="The React component footer."
         client:visible
       />
 
@@ -52,10 +53,12 @@ import CardAstro from "@components/Card/Card.astro";
       <h3 class="h3">Astro</h3>
       <CardAstro
         href="https://docs.astro.build/"
-        title="Astro Card Component"
-        body="This is a Astro component."
-        background="bg-indigo-500"
-      />
+        rootBg="bg-indigo-500"
+      >
+        <Fragment slot="title">Astro Card Component</Fragment>
+        <Fragment slot="article">The Astro component article.</Fragment>
+        <Fragment slot="footer">The Astro component footer.</Fragment>
+      </CardAstro>
       
   </section>
 

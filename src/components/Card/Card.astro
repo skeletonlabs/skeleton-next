@@ -1,34 +1,56 @@
 ---
-// FIXME: this needs to be updated to match Svelte example
-
 interface Props {
-  // Props (settings)
   href: string;
-  title: string;
-  body: string;
-  // Props (styles)
-  elemBase?: string;
-  elemHeading?: string;
-  restBase?: string;
-  restHeading?: string;
-  background?: string;
+  // Root
+  rootBase?: string;
+  rootBg?: string;
+  rootSpaceY?: string;
+  rootRest?: string;
+  // Title
+  titleBase?: string;
+  titleRest?: string;
+  // Article
+  articleBase?: string;
+  articleRest?: string;
+  // Footer
+  footerBase?: string;
+  footerRest?: string;
 }
 
 const {
-  // Props (settings)
   href,
-  title,
-  body,
-  // Props (styles)
-  elemBase = "card",
-  elemHeading = "h2",
-  restBase = "",
-  restHeading = "",
-  background = "bg-slate-800",
+  // Root
+  rootBase = "card",
+  rootBg = "bg-slate-800",
+  rootSpaceY = "space-y-2",
+  rootRest,
+  // Title
+  titleBase = "h2",
+  titleRest,
+  // Article
+  articleBase,
+  articleRest,
+  // Footer
+  footerBase = "border-t border-white/10 pt-2",
+  footerRest,
 } = Astro.props;
 ---
 
-<a {href} class:list={[elemBase, background, restBase]}>
-  <h2 class:list={[elemHeading, restHeading]}>{title}</h2>
-  <p>{body}</p>
+<a {href} class:list={[rootBase, rootBg, rootSpaceY, rootRest]}>
+  <!-- Title -->
+  <Fragment slot="title">
+    <h2 class:list={[titleBase, titleRest]}><slot name="title" /></h2>
+  </Fragment>
+  <!-- Article -->
+  <Fragment slot="article">
+    <article class:list={[articleBase, articleRest]}>
+      <slot name="article" />
+    </article>
+  </Fragment>
+  <!-- Footer -->
+  <Fragment slot="footer">
+    <footer class:list={[footerBase, footerRest]}>
+      <slot name="footer" />
+    </footer>
+  </Fragment>
 </a>

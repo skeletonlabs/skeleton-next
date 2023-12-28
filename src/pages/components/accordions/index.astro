@@ -1,5 +1,7 @@
 ---
 import LayoutRoot from "@layouts/LayoutRoot.astro";
+// Components
+import PreviewSvelte from "./Preview.svelte";
 ---
 
 <!-- prettier-ignore -->
@@ -13,18 +15,18 @@ import LayoutRoot from "@layouts/LayoutRoot.astro";
     <hr class="block bg-white/10 border-0 h-[1px]" />
 
     <!-- Elements -->
-    <section class="space-y-4">
+    <!-- <section class="space-y-4">
       <h2 class="h2">Elements</h2>
       <p>(element)</p>
-    </section>
+    </section> -->
 
     <!-- Components -->
     <section class="space-y-4">
       <h2 class="h2">Components</h2>
 
       <!-- Svelte -->
-      <h3 class="h3">Svelte</h3>
-      <p>(component)</p>
+      <h3 class="h3 pb-4">Svelte</h3>
+      <PreviewSvelte client:load />
 
       <!-- React -->
       <h3 class="h3">React</h3>

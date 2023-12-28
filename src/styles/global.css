@@ -26,6 +26,10 @@ body {
   @apply text-lg;
 }
 
+.hr {
+  @apply block bg-white/10 border-0 h-[1px];
+}
+
 /* Card */
 
 .card {

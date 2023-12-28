@@ -68,9 +68,7 @@
     const iconClosed: Snippet = getContext('iconClosed');
 
     // Init
-    $effect(() => {
-        open ? setOpen() : setClosed();
-    })
+    if (open) setOpen();
 
     function onclick(event: Event): void {
         $selected.includes(id) ? setClosed() : setOpen()

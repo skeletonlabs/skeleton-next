@@ -3,8 +3,12 @@
     import type { Writable } from "svelte/store";
     import { slide } from "svelte/transition";
 
+    interface ToggleEvent { event: Event, id: string, open: boolean }
+
     interface Props {
-        open?: boolean
+        id?: string;
+        open?: boolean;
+        disabled?: boolean;
         // Root
         rootBase?: string;
         rootSpacingY?: string;
@@ -21,6 +25,8 @@
         panelRounded?: string;
         panelRest?: string;
         panelAnimDuration?: number;
+        // Events
+        ontoggle?: ({ event, open, id}: ToggleEvent) => {};
         // Snippets
         control: Snippet;
         controlLead?: Snippet;
@@ -28,7 +34,9 @@
     }
 
     let {
+        id = String(Math.random()),
         open = false,
+        disabled = false,
         // Root
         rootBase = '',
         rootSpacingY = "",
@@ -45,6 +53,8 @@
         panelRounded = '',
         panelRest = '',
         panelAnimDuration = 200,
+        // Events
+        ontoggle,
         // Snippets
         control,
         controlLead,
@@ -57,14 +67,13 @@
     const iconOpen: Snippet = getContext('iconOpen');
     const iconClosed: Snippet = getContext('iconClosed');
 
-    // Local
-    const id = String(Math.random());
-
     // Init
     if (open) setOpen();
 
-    function onclick(): void {
+    function onclick(event: Event): void {
         $selected.includes(id) ? setClosed() : setOpen()
+        // Trigge event handler
+        if (ontoggle) ontoggle({event, open: $selected.includes(id), id})
     }
 
     function setOpen(): void {
@@ -84,7 +93,10 @@
     <button
         type="button"
         class="{controlBase} {controlHover} {controlPadding} {controlRounded} {controlRest}"
+        aria-expanded={$selected.includes(id)}
+		aria-controls="accordion-panel-{id}"
         {onclick}
+        {disabled}
     >
         <!-- Lead -->
         {#if controlLead}<div>{@render controlLead()}</div>{/if}
@@ -104,6 +116,10 @@
         <div
             class="{panelBase} {panelPadding} {panelRounded} {panelRest}"
             transition:slide={{ duration: panelAnimDuration }}
+            id="accordion-panel-{id}"
+            role="region"
+			aria-hidden={$selected.includes(id)}
+			aria-labelledby={id}
         >
             {@render panel()}
         </div>

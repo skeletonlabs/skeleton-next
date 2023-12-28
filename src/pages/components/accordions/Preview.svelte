@@ -12,7 +12,7 @@
     <!-- {#snippet iconClosed()}&darr;{/snippet} -->
     <!-- Children -->
     {#snippet children()}
-        <AccordionItem {controlHover}>
+        <AccordionItem {controlHover} open>
             <!-- Control -->
             {#snippet controlLead()}💀{/snippet}
             {#snippet control()}<h4 class="h4">Svelte Control 1</h4>{/snippet}

@@ -52,22 +52,28 @@
     } = $props<Props>();
 
     // Context
-    let selected: Writable<string | null> = getContext('selected');
+    let selected: Writable<string[]> = getContext('selected');
     const multiple: boolean = getContext('multiple');
     const iconOpen: Snippet = getContext('iconOpen');
     const iconClosed: Snippet = getContext('iconClosed');
 
     // Local
-    let id = $state(String(Math.random()));
+    const id = String(Math.random());
+
+    // Init
+    if (open) setOpen();
 
     function onclick(): void {
-        if (multiple) {
-            // Toggle
-            open = !open;
-        } else {
-            // Updated selected ID
-            selected.set(id)
-        }
+        $selected.includes(id) ? setClosed() : setOpen()
+    }
+
+    function setOpen(): void {
+        if (!multiple) $selected = [];
+        $selected = [...$selected, id];
+    }
+
+    function setClosed(): void {
+        $selected = $selected.filter(itemId => itemId !== id);
     }
 </script>
 
@@ -86,7 +92,7 @@
         <div class="flex-1">{@render control()}</div>
         <!-- State Indicator -->
         <div>
-            {#if open}
+            {#if $selected.includes(id)}
                 {#if iconOpen}{@render iconOpen()}{:else}&minus;{/if}
             {:else}
                 {#if iconClosed}{@render iconClosed()}{:else}&plus;{/if}
@@ -94,7 +100,7 @@
         </div>
     </button>
     <!-- Panel -->
-    {#if panel && (multiple ? open : $selected === id)}
+    {#if panel && $selected.includes(id)}
         <div
             class="{panelBase} {panelPadding} {panelRounded} {panelRest}"
             transition:slide={{ duration: panelAnimDuration }}

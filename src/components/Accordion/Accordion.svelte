@@ -33,7 +33,7 @@
     } = $props<Props>();
 
     // Local
-    let selected = writable<string | null>(null);
+    let selected = writable<string[]>([]);
 
     // Context
     setContext('selected', selected);

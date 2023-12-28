@@ -2,8 +2,8 @@
 import LayoutRoot from "@layouts/LayoutRoot.astro";
 
 const componentsList = [
-  { href: "/components/card", label: "Cards" },
-  // { href: "/components/foo", label: "Foo" },
+  { href: "/components/cards", label: "Cards" },
+  { href: "/components/accordions", label: "Accordions" },
 ];
 ---
 
@@ -15,10 +15,10 @@ const componentsList = [
     <hr class="block bg-white/10 border-0 h-[1px]" />
 
     <!-- Browse -->
-    <nav class="grid grid-cols-3 gap-4">
+    <nav class="grid grid-cols-2 gap-4">
 
       {componentsList.map((c) => (
-        <a class="bg-slate-800 hover:bg-slate-700 p-4 py-10 text-center" href={c.href}>{c.label}</a>
+        <a class="card bg-slate-800 !py-10 text-center" href={c.href}>{c.label}</a>
       ))}
     </nav>
 

@@ -6,7 +6,7 @@ body {
   @apply bg-slate-900 text-white p-4;
 }
 
-/* Skeleton Elemements */
+/* Elemements --- */
 
 .h1,
 .h2,
@@ -25,6 +25,8 @@ body {
 .h3 {
   @apply text-lg;
 }
+
+/* Card */
 
 .card {
   @apply block p-4 rounded;

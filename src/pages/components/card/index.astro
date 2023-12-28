@@ -2,7 +2,12 @@
 import LayoutRoot from "@layouts/LayoutRoot.astro";
 // Components
 import DemoSvelte from "./Demo.svelte";
-import CardReact from "@components/Card/Card.tsx";
+import {
+  Card as CardReact,
+  CardTitle,
+  CardArticle,
+  CardFooter,
+} from "@components/Card/Card.tsx";
 import CardAstro from "@components/Card/Card.astro";
 ---
 
@@ -43,11 +48,12 @@ import CardAstro from "@components/Card/Card.astro";
       <CardReact
         href="https://react.dev/"
         rootBg="bg-blue-500"
-        title="React Card Component"
-        article="The React component article."
-        footer="The React component footer."
         client:visible
-      />
+      >
+        <CardTitle>React Card Component</CardTitle>
+        <CardArticle>The React component article.</CardArticle>
+        <CardFooter>The React component footer.</CardFooter>
+      </CardReact>
 
       <!-- Astro -->
       <h3 class="h3">Astro</h3>

@@ -1,6 +1,6 @@
 <script lang="ts">
     import { setContext, type Snippet } from "svelte";
-	import { State } from "../state.svelte.js";
+	import { State } from "./state.svelte.js";
 
     interface AccordionProps {
         multiple?: boolean;

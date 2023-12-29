@@ -1,7 +1,7 @@
 <script lang="ts">
     import { getContext, untrack, type Snippet } from "svelte";
     import { slide } from "svelte/transition";
-	import type { State } from "../state.svelte.js";
+	import type { State } from "./state.svelte.js";
 
     type ToggleEvent = CustomEvent<{  id: string, open: boolean }>;
 

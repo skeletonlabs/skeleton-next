@@ -14,19 +14,19 @@ export const PreviewReact: React.FC = (): React.ReactElement => {
 
   return (
     <Accordion>
-      <AccordionItem open>
+      <AccordionItem id="reactItem1" open>
         <AccordionControl controlHover={controlHover}>
           Control-1
         </AccordionControl>
         <AccordionPanel>Panel-1 - {lorem}</AccordionPanel>
       </AccordionItem>
-      <AccordionItem>
+      <AccordionItem id="reactItem2">
         <AccordionControl controlHover={controlHover}>
           Control-2
         </AccordionControl>
         <AccordionPanel>Panel-2 - {lorem}</AccordionPanel>
       </AccordionItem>
-      <AccordionItem>
+      <AccordionItem id="reactItem3">
         <AccordionControl controlHover={controlHover}>
           Control-3
         </AccordionControl>

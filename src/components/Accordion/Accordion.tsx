@@ -1,6 +1,14 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+  type Dispatch,
+  type SetStateAction,
+} from "react";
 
 interface AccordionProps extends React.PropsWithChildren {
   multiple?: boolean;
@@ -11,13 +19,10 @@ interface AccordionProps extends React.PropsWithChildren {
   rootRounded?: string;
   rootWidth?: string;
   rootRest?: string;
-  // Icons
-  iconClosed?: React.FC<unknown>;
-  iconOpen?: React.FC<unknown>;
 }
 
 interface AccordionItemProps extends React.PropsWithChildren {
-  id?: string;
+  id: string;
   open?: boolean;
   disabled?: boolean;
   // Root
@@ -44,15 +49,21 @@ interface AccordionPanelProps extends React.PropsWithChildren {
 
 interface AccordionContextState {
   childId: string;
+  setChildId: Dispatch<SetStateAction<string>>;
   selected: string[];
-  multiple: boolean;
+  setSelected: Dispatch<SetStateAction<string[]>>;
+  allowMultiple: boolean;
+  setAllowMultiple: Dispatch<SetStateAction<boolean>>;
 }
 
 // Context
 export const AccordionContext = createContext<AccordionContextState>({
   childId: "",
+  setChildId: () => {},
   selected: [],
-  multiple: false,
+  setSelected: () => {},
+  allowMultiple: false,
+  setAllowMultiple: () => {},
 });
 
 /** Component: An Accordion child element. */
@@ -65,23 +76,29 @@ export const Accordion: React.FC<AccordionProps> = ({
   rootRounded = "rounded",
   rootWidth = "w-full",
   rootRest = "",
-  // Icons
-  iconClosed,
-  iconOpen,
   // Children
   children,
 }): React.ReactElement => {
-  const [providerValues, setProviderValues] = useState<AccordionContextState>({
-    childId: "",
-    selected: [],
-    multiple,
-  });
+  // Create States
+  const [childId, setChildId] = useState<string>("");
+  const [selected, setSelected] = useState<string[]>([]);
+  const [allowMultiple, setAllowMultiple] = useState<boolean>(false);
+
   return (
     <div
       className={`${rootBase} ${rootPadding} ${rootSpacingY} ${rootRounded} ${rootWidth} ${rootRest}`}
       data-testid="accordion"
     >
-      <AccordionContext.Provider value={providerValues}>
+      <AccordionContext.Provider
+        value={{
+          childId,
+          setChildId,
+          selected,
+          setSelected,
+          allowMultiple,
+          setAllowMultiple,
+        }}
+      >
         {children}
       </AccordionContext.Provider>
     </div>
@@ -90,7 +107,7 @@ export const Accordion: React.FC<AccordionProps> = ({
 
 /** Component: An Accordion child element. */
 export const AccordionItem: React.FC<AccordionItemProps> = ({
-  id = String(Math.random()), // <-- FIXME: for the prototype only
+  id,
   open = false,
   disabled = false,
   // Root
@@ -101,27 +118,28 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
   children,
 }): React.ReactElement => {
   let ctx = useContext<AccordionContextState>(AccordionContext);
-  ctx.childId = id;
-  // console.log({ ctx });
 
-  // Init
-  if (open) setOpen();
+  useEffect(() => {
+    ctx.setChildId(id);
+    if (open) setOpen();
+    console.log("AccordionItem-ctx", id, ctx);
+  }, []);
 
-  function onclick(event: unknown) {
+  const onclick = (event: unknown) => {
     ctx.selected.includes(id) ? setClosed() : setOpen();
-    // console.log("onclick() triggered", ctx.selected);
-  }
+    console.log("onclick", ctx.selected);
+  };
 
-  function setOpen() {
-    if (!ctx.multiple) ctx.selected = [];
-    ctx.selected.push(id);
-    ctx = { ...ctx };
-  }
+  const setOpen = () => {
+    if (!ctx.allowMultiple) ctx.setSelected([]);
+    ctx.setSelected([id]);
+    console.log("setOpen() triggered", ctx.selected);
+  };
 
-  function setClosed() {
-    ctx.selected = ctx.selected.filter((itemId) => itemId !== id);
-    ctx = { ...ctx };
-  }
+  const setClosed = () => {
+    ctx.setSelected(ctx.selected.filter((itemId) => itemId !== id));
+    console.log("setClosed() triggered", ctx.selected);
+  };
 
   return (
     <div

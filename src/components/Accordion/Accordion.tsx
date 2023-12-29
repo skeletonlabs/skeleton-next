@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 interface AccordionProps extends React.PropsWithChildren {
   multiple?: boolean;
@@ -42,7 +42,7 @@ interface AccordionPanelProps extends React.PropsWithChildren {
   panelAnimDuration?: number;
 }
 
-interface AccordionContextState extends React.PropsWithChildren {
+interface AccordionContextState {
   childId: string;
   selected: string[];
   multiple: boolean;
@@ -76,7 +76,6 @@ export const Accordion: React.FC<AccordionProps> = ({
     selected: [],
     multiple,
   });
-
   return (
     <div
       className={`${rootBase} ${rootPadding} ${rootSpacingY} ${rootRounded} ${rootWidth} ${rootRest}`}
@@ -103,7 +102,10 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
 }): React.ReactElement => {
   let ctx = useContext<AccordionContextState>(AccordionContext);
   ctx.childId = id;
-  //   console.log({ ctx });
+  // console.log({ ctx });
+
+  // Init
+  if (open) setOpen();
 
   function onclick(event: unknown) {
     ctx.selected.includes(id) ? setClosed() : setOpen();
@@ -113,10 +115,12 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
   function setOpen() {
     if (!ctx.multiple) ctx.selected = [];
     ctx.selected.push(id);
+    ctx = { ...ctx };
   }
 
   function setClosed() {
     ctx.selected = ctx.selected.filter((itemId) => itemId !== id);
+    ctx = { ...ctx };
   }
 
   return (
@@ -159,10 +163,9 @@ export const AccordionPanel: React.FC<AccordionPanelProps> = ({
   children,
 }): React.ReactElement => {
   let ctx = useContext<AccordionContextState>(AccordionContext);
-  // console.log("AccordianPanel", ctx);
+  // console.log("AccordionPanel-ctx", ctx);
   return (
     <>
-      {/* FIXME: this condition is not updated reactively */}
       {ctx.selected.includes(ctx.childId) && (
         <div
           className={`${panelBase} ${panelPadding} ${panelRounded} ${panelRest}`}

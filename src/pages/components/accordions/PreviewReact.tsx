@@ -7,19 +7,30 @@ import {
 } from "@components/Accordion/Accordion.tsx";
 
 export const PreviewReact: React.FC = (): React.ReactElement => {
+  const lorem =
+    "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit esse nisi eligendi fuga! Quas nisi repellat adipisci animi repellendus incidunt laborum sunt qui nesciunt, ducimus saepe sapiente sed ut labore. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit esse nisi eligendi fuga! Quas nisi repellat adipisci animi repellendus incidunt laborum sunt qui nesciunt, ducimus saepe sapiente sed ut labore.";
+  const controlHover = "hover:bg-blue-500";
+  // const ontoggle = (e: Event) => console.log(e);
+
   return (
     <Accordion>
-      <AccordionItem>
-        <AccordionControl>Control-1</AccordionControl>
-        <AccordionPanel>Panel-1</AccordionPanel>
+      <AccordionItem open>
+        <AccordionControl controlHover={controlHover}>
+          Control-1
+        </AccordionControl>
+        <AccordionPanel>Panel-1 - {lorem}</AccordionPanel>
       </AccordionItem>
       <AccordionItem>
-        <AccordionControl>Control-2</AccordionControl>
-        <AccordionPanel>Panel-2</AccordionPanel>
+        <AccordionControl controlHover={controlHover}>
+          Control-2
+        </AccordionControl>
+        <AccordionPanel>Panel-2 - {lorem}</AccordionPanel>
       </AccordionItem>
       <AccordionItem>
-        <AccordionControl>Control-3</AccordionControl>
-        <AccordionPanel>Panel-3</AccordionPanel>
+        <AccordionControl controlHover={controlHover}>
+          Control-3
+        </AccordionControl>
+        <AccordionPanel>Panel-3 - {lorem}</AccordionPanel>
       </AccordionItem>
     </Accordion>
   );

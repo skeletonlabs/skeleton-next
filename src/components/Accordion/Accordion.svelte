@@ -2,7 +2,7 @@
     import { setContext, type Snippet } from "svelte";
     import { writable } from "svelte/store";
 
-    interface Props {
+    interface AccordionProps {
         multiple?: boolean;
         // Root
         rootBase?: string;
@@ -12,7 +12,7 @@
         rootWidth?: string;
         rootRest?: string;
         // Snippets
-        children?: Snippet;
+        children: Snippet;
         iconOpen?: Snippet;
         iconClosed?: Snippet;
     }
@@ -30,13 +30,10 @@
         children,
         iconOpen,
         iconClosed
-    } = $props<Props>();
-
-    // Local
-    let selected = writable<string[]>([]);
+    } = $props<AccordionProps>();
 
     // Context
-    setContext('selected', selected);
+    setContext('selected', writable<string[]>([]));
     setContext('multiple', multiple);
     setContext('iconOpen', iconOpen);
     setContext('iconClosed', iconClosed);
@@ -45,5 +42,5 @@
 <!-- @component The Accordion parent element. -->
 
 <div class="{rootBase} {rootPadding} {rootSpacingY} {rootRounded} {rootWidth} {rootRest}" data-testid="accordion">
-    {#if children}{@render children()}{/if}
+    {@render children()}
 </div>

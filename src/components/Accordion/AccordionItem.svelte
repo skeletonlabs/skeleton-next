@@ -3,9 +3,9 @@
     import type { Writable } from "svelte/store";
     import { slide } from "svelte/transition";
 
-    interface ToggleEvent { event: Event, id: string, open: boolean }
+    type ToggleEvent = CustomEvent<{  id: string, open: boolean }>;
 
-    interface Props {
+    interface AccordionItemProps {
         id?: string;
         open?: boolean;
         disabled?: boolean;
@@ -26,7 +26,7 @@
         panelRest?: string;
         panelAnimDuration?: number;
         // Events
-        ontoggle?: ({ event, open, id}: ToggleEvent) => {};
+        ontoggle?: (toggleEvent: ToggleEvent) => void;
         // Snippets
         control: Snippet;
         controlLead?: Snippet;
@@ -34,7 +34,7 @@
     }
 
     let {
-        id = String(Math.random()),
+        id = String(Math.random()), // <-- FIXME: for the prototype only
         open = false,
         disabled = false,
         // Root
@@ -54,15 +54,15 @@
         panelRest = '',
         panelAnimDuration = 200,
         // Events
-        ontoggle,
+        ontoggle = () => {},
         // Snippets
         control,
         controlLead,
         panel,
-    } = $props<Props>();
+    } = $props<AccordionItemProps>();
 
     // Context
-    let selected: Writable<string[]> = getContext('selected');
+    const selected = getContext<Writable<string[]>>('selected');
     const multiple: boolean = getContext('multiple');
     const iconOpen: Snippet = getContext('iconOpen');
     const iconClosed: Snippet = getContext('iconClosed');
@@ -70,18 +70,18 @@
     // Init
     if (open) setOpen();
 
-    function onclick(event: Event): void {
+    function onclick(event: Event) {
         $selected.includes(id) ? setClosed() : setOpen()
-        // Trigge event handler
-        if (ontoggle) ontoggle({event, open: $selected.includes(id), id})
+        // Trigger the toggle event
+        ontoggle(new CustomEvent('toggle', { detail: { id, open: $selected.includes(id) }}))
     }
 
-    function setOpen(): void {
+    function setOpen() {
         if (!multiple) $selected = [];
         $selected = [...$selected, id];
     }
 
-    function setClosed(): void {
+    function setClosed() {
         $selected = $selected.filter(itemId => itemId !== id);
     }
 </script>

@@ -2,7 +2,7 @@
   import type { Snippet } from "svelte";
 
   // NOTE: consider `./types.ts`
-  interface Props {
+  interface CardProps {
     href: string;
     // Root
     rootBase?: string;
@@ -44,7 +44,7 @@
     title,
     article,
     footer
-  } = $props<Props>();
+  } = $props<CardProps>();
 </script>
 
 <!-- @component A simple card component. -->

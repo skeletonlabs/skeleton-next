@@ -1,6 +1,6 @@
 <script lang="ts">
     import { setContext, type Snippet } from "svelte";
-    import { writable } from "svelte/store";
+	import { State } from "../state.svelte.js";
 
     interface AccordionProps {
         multiple?: boolean;
@@ -31,9 +31,9 @@
         iconOpen,
         iconClosed
     } = $props<AccordionProps>();
-
+   
     // Context
-    setContext('selected', writable<string[]>([]));
+    setContext('selected', new State<string[]>([]));
     setContext('multiple', multiple);
     setContext('iconOpen', iconOpen);
     setContext('iconClosed', iconClosed);

@@ -15,7 +15,11 @@ export const PreviewReact: React.FC = (): React.ReactElement => {
   return (
     <Accordion rootPadding="p-4" rootRest="bg-blue-500/5">
       <AccordionItem>
-        <AccordionControl id="reactItem1" controlHover={controlHover} open>
+        <AccordionControl
+          controls="reactItem1"
+          controlHover={controlHover}
+          open
+        >
           <h4 className="h4">
             <span className="mr-4">💀</span>
             <span>React Control 1</span>
@@ -27,7 +31,7 @@ export const PreviewReact: React.FC = (): React.ReactElement => {
       </AccordionItem>
       <hr className="hr" />
       <AccordionItem>
-        <AccordionControl id="reactItem2" controlHover={controlHover}>
+        <AccordionControl controls="reactItem2" controlHover={controlHover}>
           <h4 className="h4">React Control 2</h4>
         </AccordionControl>
         <AccordionPanel id="reactItem2">
@@ -36,7 +40,11 @@ export const PreviewReact: React.FC = (): React.ReactElement => {
       </AccordionItem>
       <hr className="hr" />
       <AccordionItem>
-        <AccordionControl id="reactItem3" controlHover={controlHover} disabled>
+        <AccordionControl
+          controls="reactItem3"
+          controlHover={controlHover}
+          disabled
+        >
           <h4 className="h4">React Control 3</h4>
         </AccordionControl>
         <AccordionPanel id="reactItem3">
@@ -45,7 +53,7 @@ export const PreviewReact: React.FC = (): React.ReactElement => {
       </AccordionItem>
       <hr className="hr" />
       <AccordionItem>
-        <AccordionControl id="reactItem4" controlHover={controlHover}>
+        <AccordionControl controls="reactItem4" controlHover={controlHover}>
           <h4 className="h4">React Control 4</h4>
         </AccordionControl>
         <AccordionPanel id="reactItem4">

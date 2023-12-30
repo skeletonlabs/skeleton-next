@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { getContext, type Snippet } from "svelte";
-    import type { Writable } from "svelte/store";
+    import { getContext, untrack, type Snippet } from "svelte";
     import { slide } from "svelte/transition";
+	import type { State } from "./state.svelte.js";
 
     type ToggleEvent = CustomEvent<{  id: string, open: boolean }>;
 
@@ -35,7 +35,7 @@
 
     let {
         id = String(Math.random()), // <-- FIXME: for the prototype only
-        open = false,
+        open,
         disabled = false,
         // Root
         rootBase = '',
@@ -62,27 +62,37 @@
     } = $props<AccordionItemProps>();
 
     // Context
-    const selected = getContext<Writable<string[]>>('selected');
-    const multiple: boolean = getContext('multiple');
-    const iconOpen: Snippet = getContext('iconOpen');
-    const iconClosed: Snippet = getContext('iconClosed');
+    const selected = getContext<State<string[]>>('selected');
+    const multiple = getContext<boolean>('multiple');
+    const iconOpen = getContext<Snippet>('iconOpen');
+    const iconClosed = getContext<Snippet>('iconClosed');
 
-    // Init
-    if (open) setOpen();
+    // Derived State
+    const isOpen = $derived(selected.value.includes(id))
 
-    function onclick(event: Event) {
-        $selected.includes(id) ? setClosed() : setOpen()
+    // Controlled State
+    $effect(() => {
+        open ? untrack(setOpen) : untrack(setClosed)
+    });
+
+    // Syncing Controlled State
+    $effect(() => {
+        open = isOpen;
+    });
+
+    function onclick() {
+        isOpen ? setClosed() : setOpen();
         // Trigger the toggle event
-        ontoggle(new CustomEvent('toggle', { detail: { id, open: $selected.includes(id) }}))
+        ontoggle(new CustomEvent('toggle', { detail: { id, open: isOpen }}))
     }
 
     function setOpen() {
-        if (!multiple) $selected = [];
-        $selected = [...$selected, id];
+        if (!multiple) selected.value = [];
+        selected.value.push(id);
     }
 
     function setClosed() {
-        $selected = $selected.filter(itemId => itemId !== id);
+        selected.value = selected.value.filter(itemId => itemId !== id);
     }
 </script>
 
@@ -93,7 +103,7 @@
     <button
         type="button"
         class="{controlBase} {controlHover} {controlPadding} {controlRounded} {controlRest}"
-        aria-expanded={$selected.includes(id)}
+        aria-expanded={isOpen}
 		aria-controls="accordion-panel-{id}"
         {onclick}
         {disabled}
@@ -104,7 +114,7 @@
         <div class="flex-1">{@render control()}</div>
         <!-- State Indicator -->
         <div>
-            {#if $selected.includes(id)}
+            {#if isOpen}
                 {#if iconOpen}{@render iconOpen()}{:else}&minus;{/if}
             {:else}
                 {#if iconClosed}{@render iconClosed()}{:else}&plus;{/if}
@@ -112,13 +122,13 @@
         </div>
     </button>
     <!-- Panel -->
-    {#if panel && $selected.includes(id)}
+    {#if panel && isOpen}
         <div
             class="{panelBase} {panelPadding} {panelRounded} {panelRest}"
             transition:slide={{ duration: panelAnimDuration }}
             id="accordion-panel-{id}"
             role="region"
-			aria-hidden={$selected.includes(id)}
+			aria-hidden={isOpen}
 			aria-labelledby={id}
         >
             {@render panel()}

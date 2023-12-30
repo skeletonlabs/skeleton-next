@@ -1,10 +1,10 @@
-<script>
+<script lang="ts">
   import Accordion from "@components/Accordion/Accordion.svelte";
   import AccordionItem from "@components/Accordion/AccordionItem.svelte";
 
   const lorem = 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit esse nisi eligendi fuga! Quas nisi repellat adipisci animi repellendus incidunt laborum sunt qui nesciunt, ducimus saepe sapiente sed ut labore. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit esse nisi eligendi fuga! Quas nisi repellat adipisci animi repellendus incidunt laborum sunt qui nesciunt, ducimus saepe sapiente sed ut labore.';
   const controlHover = 'hover:bg-orange-500';
-  const ontoggle = (e) => console.log(e);
+  const ontoggle = (e: Event) => console.log(e);
 </script>
 
 <Accordion>

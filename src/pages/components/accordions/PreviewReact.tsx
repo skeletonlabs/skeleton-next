@@ -13,24 +13,24 @@ export const PreviewReact: React.FC = (): React.ReactElement => {
   // const ontoggle = (e: Event) => console.log(e);
 
   return (
-    <Accordion>
-      <AccordionItem open>
-        <AccordionControl id="reactItem1" controlHover={controlHover}>
-          Control-1
+    <Accordion rootPadding="p-4" rootRest="bg-blue-500/5">
+      <AccordionItem>
+        <AccordionControl id="reactItem1" controlHover={controlHover} open>
+          React Control 1
         </AccordionControl>
-        <AccordionPanel id="reactItem1">Panel-1 - {lorem}</AccordionPanel>
+        <AccordionPanel id="reactItem1">React Panel 1 - {lorem}</AccordionPanel>
       </AccordionItem>
       <AccordionItem>
         <AccordionControl id="reactItem2" controlHover={controlHover}>
-          Control-2
+          React Control 2
         </AccordionControl>
-        <AccordionPanel id="reactItem2">Panel-2 - {lorem}</AccordionPanel>
+        <AccordionPanel id="reactItem2">React Panel 2 - {lorem}</AccordionPanel>
       </AccordionItem>
       <AccordionItem>
         <AccordionControl id="reactItem3" controlHover={controlHover}>
-          Control-3
+          React Control 3
         </AccordionControl>
-        <AccordionPanel id="reactItem3">Panel-3 - {lorem}</AccordionPanel>
+        <AccordionPanel id="reactItem3">React Panel 3 - {lorem}</AccordionPanel>
       </AccordionItem>
     </Accordion>
   );

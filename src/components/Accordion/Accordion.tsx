@@ -6,11 +6,12 @@ import React, {
   useState,
   type Dispatch,
   type SetStateAction,
+  useEffect,
 } from "react";
 
 interface AccordionProps extends React.PropsWithChildren {
   multiple?: boolean;
-  // Root
+  // ---
   rootBase?: string;
   rootPadding?: string;
   rootSpacingY?: string;
@@ -20,9 +21,6 @@ interface AccordionProps extends React.PropsWithChildren {
 }
 
 interface AccordionItemProps extends React.PropsWithChildren {
-  open?: boolean;
-  disabled?: boolean;
-  // Root
   rootBase?: string;
   rootSpacingY?: string;
   rootRest?: string;
@@ -30,6 +28,9 @@ interface AccordionItemProps extends React.PropsWithChildren {
 
 interface AccordionControlProps extends React.PropsWithChildren {
   id: string;
+  open?: boolean;
+  disabled?: boolean;
+  // ---
   controlBase?: string;
   controlHover?: string;
   controlPadding?: string;
@@ -75,7 +76,7 @@ export const Accordion: React.FC<AccordionProps> = ({
   children,
 }): React.ReactElement => {
   const [selected, setSelected] = useState<string[]>([]);
-  const [allowMultiple, setAllowMultiple] = useState<boolean>(false);
+  const [allowMultiple, setAllowMultiple] = useState<boolean>(multiple);
 
   return (
     <div
@@ -98,9 +99,6 @@ export const Accordion: React.FC<AccordionProps> = ({
 
 /** Component: An Accordion child element. */
 export const AccordionItem: React.FC<AccordionItemProps> = ({
-  open = false,
-  disabled = false,
-  // Root
   rootBase = "",
   rootSpacingY = "",
   rootRest = "",
@@ -119,6 +117,8 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
 
 export const AccordionControl: React.FC<AccordionControlProps> = ({
   id,
+  open = false,
+  disabled = false,
   // Control
   controlBase = "flex text-start items-center space-x-4 w-full",
   controlHover = "hover:bg-white/5",
@@ -129,22 +129,22 @@ export const AccordionControl: React.FC<AccordionControlProps> = ({
   children,
 }): React.ReactElement => {
   let ctx = useContext<AccordionContextState>(AccordionContext);
-  //   console.log("AccordionItem-ctx", id, ctx);
+
+  useEffect(() => {
+    if (open) setOpen();
+  }, [open]);
 
   const onclick = () => {
-    // console.log("onclick", ctx.selected);
     ctx.selected.includes(id) ? setClosed() : setOpen();
   };
 
   const setOpen = () => {
     if (ctx.allowMultiple === false) ctx.setSelected([]);
     ctx.setSelected((currentValue) => [...currentValue, id]);
-    // console.log("setOpen() triggered", ctx.selected);
   };
 
   const setClosed = () => {
-    // ctx.setSelected(ctx.selected.filter((itemId) => itemId !== id));
-    // console.log("setClosed() triggered", ctx.selected);
+    ctx.setSelected(ctx.selected.filter((itemId) => itemId !== id));
   };
 
   return (
@@ -152,8 +152,12 @@ export const AccordionControl: React.FC<AccordionControlProps> = ({
       type="button"
       className={`${controlBase} ${controlHover} ${controlPadding} ${controlRounded} ${controlRest}`}
       onClick={onclick}
+      disabled={disabled}
     >
-      {children}
+      {/* Content */}
+      <div className="flex-1">{children}</div>
+      {/* State Indicator */}
+      <div>{ctx.selected.includes(id) ? "-" : "+"}</div>
     </button>
   );
 };

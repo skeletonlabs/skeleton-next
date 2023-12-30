@@ -7,7 +7,7 @@
   const ontoggle = (e: Event) => console.log(e);
 </script>
 
-<Accordion rootPadding="p-4" rootRest="bg-orange-500/5">
+<Accordion rootPadding="p-4" rootRest="border border-orange-500">
     <!-- Icons -->
     <!-- {#snippet iconOpen()}&uarr;{/snippet} -->
     <!-- {#snippet iconClosed()}&darr;{/snippet} -->

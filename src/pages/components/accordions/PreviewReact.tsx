@@ -13,7 +13,7 @@ export const PreviewReact: React.FC = (): React.ReactElement => {
   // const ontoggle = (e: Event) => console.log(e);
 
   return (
-    <Accordion rootPadding="p-4" rootRest="bg-blue-500/5">
+    <Accordion rootPadding="p-4" rootRest="border border-blue-500">
       <AccordionItem>
         <AccordionControl
           controls="reactItem1"

@@ -1,7 +1,8 @@
 ---
 import LayoutRoot from "@layouts/LayoutRoot.astro";
 // Components
-import PreviewSvelte from "./Preview.svelte";
+import PreviewSvelte from "./PreviewSvelte.svelte";
+import { PreviewReact } from "./PreviewReact.tsx";
 ---
 
 <!-- prettier-ignore -->
@@ -23,8 +24,8 @@ import PreviewSvelte from "./Preview.svelte";
       <PreviewSvelte client:load />
 
       <!-- React -->
-      <h3 class="h3">React</h3>
-      <p>(component)</p>
+      <h3 class="h3 pb-4">React</h3>
+      <PreviewReact client:load />
 
   </section>
 

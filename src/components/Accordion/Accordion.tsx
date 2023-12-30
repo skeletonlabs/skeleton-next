@@ -8,6 +8,7 @@ import React, {
   type SetStateAction,
   useEffect,
 } from "react";
+import { composeComponents } from "src/lib/react/compose";
 
 interface AccordionProps extends React.PropsWithChildren {
   multiple?: boolean;
@@ -55,7 +56,7 @@ interface AccordionContextState {
 }
 
 // Context
-export const AccordionContext = createContext<AccordionContextState>({
+const AccordionContext = createContext<AccordionContextState>({
   selected: [],
   setSelected: () => {},
   allowMultiple: false,
@@ -63,7 +64,7 @@ export const AccordionContext = createContext<AccordionContextState>({
 });
 
 /** Component: An Accordion child element. */
-export const Accordion: React.FC<AccordionProps> = ({
+const AccordionRoot: React.FC<AccordionProps> = ({
   multiple = false,
   // Root
   rootBase = "",
@@ -98,7 +99,7 @@ export const Accordion: React.FC<AccordionProps> = ({
 };
 
 /** Component: An Accordion child element. */
-export const AccordionItem: React.FC<AccordionItemProps> = ({
+const AccordionItem: React.FC<AccordionItemProps> = ({
   rootBase = "",
   rootSpacingY = "",
   rootRest = "",
@@ -115,7 +116,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
   );
 };
 
-export const AccordionControl: React.FC<AccordionControlProps> = ({
+const AccordionControl: React.FC<AccordionControlProps> = ({
   id,
   open = false,
   disabled = false,
@@ -162,7 +163,7 @@ export const AccordionControl: React.FC<AccordionControlProps> = ({
   );
 };
 
-export const AccordionPanel: React.FC<AccordionPanelProps> = ({
+const AccordionPanel: React.FC<AccordionPanelProps> = ({
   id,
   // Panel
   panelBase = "",
@@ -187,3 +188,9 @@ export const AccordionPanel: React.FC<AccordionPanelProps> = ({
     </>
   );
 };
+
+export const Accordion = composeComponents(AccordionRoot, {
+  Item: AccordionItem,
+  Control: AccordionControl,
+  Panel: AccordionPanel,
+});

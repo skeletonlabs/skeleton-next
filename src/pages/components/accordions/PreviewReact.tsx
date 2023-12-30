@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  Accordion,
-  AccordionItem,
-  AccordionControl,
-  AccordionPanel,
-} from "@components/Accordion/Accordion.tsx";
+import { Accordion } from "@components/Accordion/Accordion.tsx";
 
 export const PreviewReact: React.FC = (): React.ReactElement => {
   const lorem =
@@ -14,44 +9,44 @@ export const PreviewReact: React.FC = (): React.ReactElement => {
 
   return (
     <Accordion rootPadding="p-4" rootRest="bg-blue-500/5">
-      <AccordionItem>
-        <AccordionControl id="reactItem1" controlHover={controlHover} open>
+      <Accordion.Item>
+        <Accordion.Control id="reactItem1" controlHover={controlHover} open>
           <h4 className="h4">
             <span className="mr-4">💀</span>
             <span>React Control 1</span>
           </h4>
-        </AccordionControl>
-        <AccordionPanel id="reactItem1">
+        </Accordion.Control>
+        <Accordion.Panel id="reactItem1">
           <p>React Panel 1 - {lorem}</p>
-        </AccordionPanel>
-      </AccordionItem>
+        </Accordion.Panel>
+      </Accordion.Item>
       <hr className="hr" />
-      <AccordionItem>
-        <AccordionControl id="reactItem2" controlHover={controlHover}>
+      <Accordion.Item>
+        <Accordion.Control id="reactItem2" controlHover={controlHover}>
           <h4 className="h4">React Control 2</h4>
-        </AccordionControl>
-        <AccordionPanel id="reactItem2">
+        </Accordion.Control>
+        <Accordion.Panel id="reactItem2">
           <p>React Panel 2 - {lorem}</p>
-        </AccordionPanel>
-      </AccordionItem>
+        </Accordion.Panel>
+      </Accordion.Item>
       <hr className="hr" />
-      <AccordionItem>
-        <AccordionControl id="reactItem3" controlHover={controlHover} disabled>
+      <Accordion.Item>
+        <Accordion.Control id="reactItem3" controlHover={controlHover} disabled>
           <h4 className="h4">React Control 3</h4>
-        </AccordionControl>
-        <AccordionPanel id="reactItem3">
+        </Accordion.Control>
+        <Accordion.Panel id="reactItem3">
           <p>React Panel 3 - {lorem}</p>
-        </AccordionPanel>
-      </AccordionItem>
+        </Accordion.Panel>
+      </Accordion.Item>
       <hr className="hr" />
-      <AccordionItem>
-        <AccordionControl id="reactItem4" controlHover={controlHover}>
+      <Accordion.Item>
+        <Accordion.Control id="reactItem4" controlHover={controlHover}>
           <h4 className="h4">React Control 4</h4>
-        </AccordionControl>
-        <AccordionPanel id="reactItem4">
+        </Accordion.Control>
+        <Accordion.Panel id="reactItem4">
           <p>React Panel 4 - {lorem}</p>
-        </AccordionPanel>
-      </AccordionItem>
+        </Accordion.Panel>
+      </Accordion.Item>
     </Accordion>
   );
 };

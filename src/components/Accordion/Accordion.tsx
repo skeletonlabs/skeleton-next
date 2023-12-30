@@ -174,7 +174,7 @@ export const AccordionPanel: React.FC<AccordionPanelProps> = ({
   children,
 }): React.ReactElement => {
   let ctx = useContext<AccordionContextState>(AccordionContext);
-  // console.log("AccordionPanel-ctx", ctx);
+
   return (
     <>
       {ctx.selected.includes(id) && (

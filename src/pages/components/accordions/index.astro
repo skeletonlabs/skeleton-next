@@ -8,9 +8,21 @@ import { PreviewReact } from "./PreviewReact.tsx";
 <!-- prettier-ignore -->
 <LayoutRoot title="Homepage" classList="p-10 space-y-10">
 
-    <header class="space-y-4">
-        <a href="/">&larr; Go back</a>
+  <!-- Navigation -->
+  <a class="btn bg-white/5" href="/">&larr; Go back</a>
+
+  <!-- Header -->
+  <header class="flex flex-col gap-4">
         <h1 class="h1">Accordions</h1>
+        <p>This represents a nearly feature complete port of the <a class="anchor" href="https://www.skeleton.dev/components/accordions" target="_blank">Skeleton Accordion</a>, but updated to use the newest standards and paradigms.</p>
+        <div class="flex gap-4 pb-4">
+          <a class="btn" href="https://github.com/skeletonlabs/skeleton-next/blob/main/src/pages/components/accordions/index.astro" target="_blank">
+            View page source
+          </a>
+          <a class="btn" href="https://github.com/skeletonlabs/skeleton/issues/2370" target="_blank">
+            GitHub Discussion
+          </a>
+        </div>
     </header>
 
     <hr class="block bg-white/10 border-0 h-[1px]" />
@@ -20,11 +32,31 @@ import { PreviewReact } from "./PreviewReact.tsx";
       <h2 class="h2">Components</h2>
 
       <!-- Svelte -->
-      <h3 class="h3 pb-4">Svelte</h3>
+      <h3 class="h3">Svelte 5</h3>
+      <div class="flex gap-4 pb-4">
+        <a class="btn" href="https://github.com/skeletonlabs/skeleton-next/blob/main/src/pages/components/accordions/PreviewSvelte.svelte" target="_blank">
+          Implementation
+        </a>
+        <a class="btn" href="https://github.com/skeletonlabs/skeleton-next/blob/main/src/components/Accordion/Accordion.svelte" target="_blank">
+          Source (Accordion)
+        </a>
+        <a class="btn" href="https://github.com/skeletonlabs/skeleton-next/blob/main/src/components/Accordion/AccordionItem.svelte" target="_blank">
+          Source (Item)
+        </a>
+      </div>
       <PreviewSvelte client:load />
 
       <!-- React -->
-      <h3 class="h3 pb-4">React</h3>
+      <h3 class="h3">React</h3>
+      <small class="opacity-50">NOTE: we expect to reach full feature parity, including animations soon!</small>
+      <div class="flex gap-4 pb-4">
+        <a class="btn" href="https://github.com/skeletonlabs/skeleton-next/blob/main/src/pages/components/accordions/PreviewReact.tsx" target="_blank">
+          Implementation
+        </a>
+        <a class="btn" href="https://github.com/skeletonlabs/skeleton-next/blob/main/src/components/Accordion/Accordion.tsx" target="_blank">
+          Source
+        </a>
+      </div>
       <PreviewReact client:load />
 
   </section>

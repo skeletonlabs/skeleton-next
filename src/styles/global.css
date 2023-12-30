@@ -3,7 +3,7 @@ body {
   @apply h-full;
 }
 body {
-  @apply bg-slate-900 text-white p-4;
+  @apply bg-neutral-900 text-white p-4;
 }
 
 *:disabled {
@@ -30,8 +30,18 @@ body {
   @apply text-lg;
 }
 
+.anchor {
+  @apply text-white/50 hover:text-white/100 underline;
+}
+
 .hr {
   @apply block bg-white/10 border-0 h-[1px];
+}
+
+/* Buttons */
+
+.btn {
+  @apply border border-white/10 hover:border-white/30 text-white py-2 px-4 rounded;
 }
 
 /* Card */

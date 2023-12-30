@@ -39,6 +39,8 @@ interface AccordionControlProps extends React.PropsWithChildren {
   controlRest?: string;
   // ---
   controlLead?: ReactNode;
+  iconOpen?: ReactNode;
+  iconClosed?: ReactNode;
 }
 
 interface AccordionPanelProps extends React.PropsWithChildren {
@@ -130,7 +132,9 @@ export const AccordionControl: React.FC<AccordionControlProps> = ({
   controlRest = "",
   // Children
   children,
-  controlLead = null
+  controlLead = null,
+  iconOpen = "-",
+  iconClosed = "+"
 }): React.ReactElement => {
   let ctx = useContext<AccordionContextState>(AccordionContext);
 
@@ -163,7 +167,7 @@ export const AccordionControl: React.FC<AccordionControlProps> = ({
       {/* Content */}
       <div className="flex-1">{children}</div>
       {/* State Indicator */}
-      <div>{ctx.selected.includes(id) ? "-" : "+"}</div>
+      <div>{ctx.selected.includes(id) ? iconOpen : iconClosed}</div>
     </button>
   );
 };

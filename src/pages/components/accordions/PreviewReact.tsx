@@ -15,11 +15,8 @@ export const PreviewReact: React.FC = (): React.ReactElement => {
   return (
     <Accordion rootPadding="p-4" rootRest="bg-blue-500/5">
       <AccordionItem>
-        <AccordionControl id="reactItem1" controlHover={controlHover} open>
-          <h4 className="h4">
-            <span className="mr-4">💀</span>
+        <AccordionControl id="reactItem1" controlHover={controlHover} open controlLead={<span>💀</span>}>
             <span>React Control 1</span>
-          </h4>
         </AccordionControl>
         <AccordionPanel id="reactItem1">
           <p>React Panel 1 - {lorem}</p>

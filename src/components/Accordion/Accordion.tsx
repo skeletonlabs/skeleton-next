@@ -7,6 +7,7 @@ import React, {
   type Dispatch,
   type SetStateAction,
   useEffect,
+  type ReactNode,
 } from "react";
 
 interface AccordionProps extends React.PropsWithChildren {
@@ -36,6 +37,8 @@ interface AccordionControlProps extends React.PropsWithChildren {
   controlPadding?: string;
   controlRounded?: string;
   controlRest?: string;
+  // ---
+  controlLead?: ReactNode;
 }
 
 interface AccordionPanelProps extends React.PropsWithChildren {
@@ -127,6 +130,7 @@ export const AccordionControl: React.FC<AccordionControlProps> = ({
   controlRest = "",
   // Children
   children,
+  controlLead = null
 }): React.ReactElement => {
   let ctx = useContext<AccordionContextState>(AccordionContext);
 
@@ -154,6 +158,8 @@ export const AccordionControl: React.FC<AccordionControlProps> = ({
       onClick={onclick}
       disabled={disabled}
     >
+      {/* Lead */}
+      {!!controlLead && <div>{controlLead}</div>}
       {/* Content */}
       <div className="flex-1">{children}</div>
       {/* State Indicator */}

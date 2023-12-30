@@ -10,21 +10,22 @@ const componentsList = [
 <!-- prettier-ignore -->
 <LayoutRoot title="Homepage" classList="p-10 space-y-10">
 
-    <header class="space-y-4">
-      <h1 class="h1">Skeleton Next</h1>
+    <header class="flex flex-col gap-4">
+      <h1 class="h1">Skeleton (Next)</h1>
+      <a href="https://github.com/skeletonlabs/skeleton-next" class="anchor" target="_blank">https://github.com/skeletonlabs/skeleton-next</a>
       <!-- Warning -->
       <div class="card bg-yellow-500/50">
-        <p>This app serves as an early prototype of Skeleton v3, which will include support for Svelte 5 and React. Please submit your thoughts and feedback via <a href="https://github.com/skeletonlabs/skeleton" class="anchor" target="_blank">GitHub</a> or <a href="https://discord.gg/EXqV7W8MtY" class="anchor" target="_blank">Discord</a></p>
+        <p>This app serves as an early prototype of Skeleton v3, which includes support for <strong>Svelte 5</strong> and <strong>React</strong>. Please submit your thoughts and feedback via <a href="https://github.com/skeletonlabs/skeleton" class="anchor" target="_blank">GitHub</a> or <a href="https://discord.gg/EXqV7W8MtY" class="anchor" target="_blank">Discord</a></p>
       </div>
     </header>
 
     <hr class="hr" />
 
     <!-- Browse -->
-    <nav class="grid grid-cols-2 gap-4">
+    <nav class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
       {componentsList.map((c) => (
-        <a class="card bg-neutral-800 hover:bg-neutral-700 !py-10 text-center text-2xl font-bold" href={c.href}>{c.label}</a>
+        <a class="btn !py-20 font-bold text-center text-2xl" href={c.href}>{c.label}</a>
       ))}
     </nav>
 

@@ -4,7 +4,7 @@ https://www.skeleton.dev/
 
 This project is a very early preview of proposed features for the next major release of [Skeleton](https://www.skeleton.dev/), version v3.x.
 
-### Track v3 Milelines:
+### Track v3 Milestones:
 
 https://github.com/skeletonlabs/skeleton/milestone/5
 

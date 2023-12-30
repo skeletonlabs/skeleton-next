@@ -119,7 +119,7 @@ const AccordionItem: React.FC<AccordionItemProps> = ({
 };
 
 const AccordionControl: React.FC<AccordionControlProps> = ({
-  id,
+  controls,
   open = false,
   disabled = false,
   // Control

@@ -7,6 +7,7 @@ import React, {
   type Dispatch,
   type SetStateAction,
   useEffect,
+  type ReactNode,
 } from "react";
 
 interface AccordionProps extends React.PropsWithChildren {
@@ -18,6 +19,10 @@ interface AccordionProps extends React.PropsWithChildren {
   rootRounded?: string;
   rootWidth?: string;
   rootRest?: string;
+  // ---
+  controlLead?: ReactNode;
+  iconOpen?: ReactNode;
+  iconClosed?: ReactNode;
 }
 
 interface AccordionItemProps extends React.PropsWithChildren {
@@ -36,6 +41,10 @@ interface AccordionControlProps extends React.PropsWithChildren {
   controlPadding?: string;
   controlRounded?: string;
   controlRest?: string;
+  // ---
+  controlLead?: ReactNode;
+  iconOpen?: ReactNode;
+  iconClosed?: ReactNode;
 }
 
 interface AccordionPanelProps extends React.PropsWithChildren {
@@ -52,6 +61,10 @@ interface AccordionContextState {
   setSelected: Dispatch<SetStateAction<string[]>>;
   allowMultiple: boolean;
   setAllowMultiple: Dispatch<SetStateAction<boolean>>;
+  // ---
+  controlLead?: ReactNode;
+  iconOpen?: ReactNode;
+  iconClosed?: ReactNode;
 }
 
 // Context
@@ -60,6 +73,10 @@ export const AccordionContext = createContext<AccordionContextState>({
   setSelected: () => {},
   allowMultiple: false,
   setAllowMultiple: () => {},
+  // ---
+  controlLead: undefined,
+  iconOpen: undefined,
+  iconClosed: undefined
 });
 
 /** Component: An Accordion child element. */
@@ -73,7 +90,10 @@ export const Accordion: React.FC<AccordionProps> = ({
   rootWidth = "w-full",
   rootRest = "",
   // Children
-  children,
+  children,  
+  controlLead = undefined,
+  iconOpen = "-",
+  iconClosed = "+"
 }): React.ReactElement => {
   const [selected, setSelected] = useState<string[]>([]);
   const [allowMultiple, setAllowMultiple] = useState<boolean>(multiple);
@@ -89,6 +109,9 @@ export const Accordion: React.FC<AccordionProps> = ({
           setSelected,
           allowMultiple,
           setAllowMultiple,
+          controlLead,
+          iconOpen,
+          iconClosed
         }}
       >
         {children}
@@ -127,8 +150,14 @@ export const AccordionControl: React.FC<AccordionControlProps> = ({
   controlRest = "",
   // Children
   children,
+  controlLead,
+  iconOpen,
+  iconClosed,
 }): React.ReactElement => {
   let ctx = useContext<AccordionContextState>(AccordionContext);
+  controlLead ??= ctx.controlLead;
+  iconOpen ??= ctx.iconOpen;
+  iconClosed ??= ctx.iconClosed;
 
   useEffect(() => {
     if (open) setOpen();
@@ -154,10 +183,12 @@ export const AccordionControl: React.FC<AccordionControlProps> = ({
       onClick={onclick}
       disabled={disabled}
     >
+      {/* Lead */}
+      {!!controlLead && <div>{controlLead}</div>}
       {/* Content */}
       <div className="flex-1">{children}</div>
       {/* State Indicator */}
-      <div>{ctx.selected.includes(id) ? "-" : "+"}</div>
+      <div>{ctx.selected.includes(id) ? iconOpen : iconClosed}</div>
     </button>
   );
 };

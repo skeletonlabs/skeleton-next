@@ -8,9 +8,13 @@ export const PreviewReact: React.FC = (): React.ReactElement => {
   // const ontoggle = (e: Event) => console.log(e);
 
   return (
-    <Accordion rootPadding="p-4" rootRest="bg-blue-500/5">
+    <Accordion rootPadding="p-4" rootRest="border border-blue-500">
       <Accordion.Item>
-        <Accordion.Control id="reactItem1" controlHover={controlHover} open>
+        <Accordion.Control
+          controls="reactItem1"
+          controlHover={controlHover}
+          open
+        >
           <h4 className="h4">
             <span className="mr-4">💀</span>
             <span>React Control 1</span>
@@ -22,7 +26,7 @@ export const PreviewReact: React.FC = (): React.ReactElement => {
       </Accordion.Item>
       <hr className="hr" />
       <Accordion.Item>
-        <Accordion.Control id="reactItem2" controlHover={controlHover}>
+        <Accordion.Control controls="reactItem2" controlHover={controlHover}>
           <h4 className="h4">React Control 2</h4>
         </Accordion.Control>
         <Accordion.Panel id="reactItem2">
@@ -31,7 +35,11 @@ export const PreviewReact: React.FC = (): React.ReactElement => {
       </Accordion.Item>
       <hr className="hr" />
       <Accordion.Item>
-        <Accordion.Control id="reactItem3" controlHover={controlHover} disabled>
+        <Accordion.Control
+          controls="reactItem3"
+          controlHover={controlHover}
+          disabled
+        >
           <h4 className="h4">React Control 3</h4>
         </Accordion.Control>
         <Accordion.Panel id="reactItem3">
@@ -40,7 +48,7 @@ export const PreviewReact: React.FC = (): React.ReactElement => {
       </Accordion.Item>
       <hr className="hr" />
       <Accordion.Item>
-        <Accordion.Control id="reactItem4" controlHover={controlHover}>
+        <Accordion.Control controls="reactItem4" controlHover={controlHover}>
           <h4 className="h4">React Control 4</h4>
         </Accordion.Control>
         <Accordion.Panel id="reactItem4">

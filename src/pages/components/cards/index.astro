@@ -1,75 +1,94 @@
 ---
 import LayoutRoot from "@layouts/LayoutRoot.astro";
 // Components
-import PreviewSvelte from "./Preview.svelte";
-import {
-  Card as CardReact,
-  CardTitle,
-  CardArticle,
-  CardFooter,
-} from "@components/Card/Card.tsx";
+import PreviewSvelte from "./PreviewSvelte.svelte";
+import { PreviewReact } from "./PreviewReact.tsx";
 import CardAstro from "@components/Card/Card.astro";
 ---
 
 <!-- prettier-ignore -->
 <LayoutRoot title="Homepage" classList="p-10 space-y-10">
 
-    <header class="space-y-4">
-        <a href="/">&larr; Go back</a>
-        <h1 class="h1">Cards</h1>
+  <!-- Navigation -->
+  <a class="btn bg-white/5" href="/">&larr; Back</a>
+
+  <!-- Header -->
+  <header class="flex flex-col gap-4">
+      <h1 class="h1">Cards</h1>
+      <div class="flex gap-4 pb-4">
+        <a class="btn" href="https://github.com/skeletonlabs/skeleton-next/blob/main/src/pages/components/cards/index.astro" target="_blank">
+          View page source
+        </a>
+      </div>
+  </header>
+
+  <!-- Warning -->
+  <div class="card bg-yellow-500/50">
+    <p>⚠️ NOTE: Skeleton will NOT implement a Card component. This has been provided as a proof of concept of the component structure.</p>
+  </div>
+
+  <hr class="hr" />
+
+  <!-- Elements -->
+  <section class="space-y-4">
+    <h2 class="h2">CSS Element</h2>
+    <!-- Card -->
+    <a href="https://skeleton.dev/" class="card bg-neutral-800 space-y-2">
+      <h2 class="h2">Card Element</h2>
+      <article>
+        <p>This Element article.</p>
+      </article>
+      <footer>
+        <p>The Element footer.</p>
+      </footer>
+    </a>
+  </section>
+
+  <!-- Components -->
+  <section class="space-y-4">
+    <header class="space-y-2">
+      <h2 class="h2">Components</h2>
     </header>
 
-    <hr class="hr" />
-
-    <!-- Elements -->
-    <section class="space-y-4">
-      <h2 class="h2">Elements</h2>
-      <!-- Card -->
-      <a href="https://skeleton.dev/" class="card bg-slate-800 space-y-2">
-        <h2 class="h2">Card Element</h2>
-        <article>
-          <p>This Element article.</p>
-        </article>
-        <footer>
-          <p>The Element footer.</p>
-        </footer>
+    <!-- Svelte -->
+    <h3 class="h3">Svelte 5</h3>
+    <div class="flex gap-4">
+      <a class="btn" href="https://github.com/skeletonlabs/skeleton-next/blob/main/src/pages/components/cards/PreviewSvelte.svelte" target="_blank">
+        Implementation
       </a>
-    </section>
+      <a class="btn" href="https://github.com/skeletonlabs/skeleton-next/blob/main/src/components/Card/Card.svelte" target="_blank">
+        Source
+      </a>
+    </div>
+    <!-- NOTE: Astro does not accept Snippets; see `Preview.svelte` -->
+    <!-- @ts-ignore -->
+    <PreviewSvelte />
 
-    <!-- Components -->
-    <section class="space-y-4">
-      <header class="space-y-2">
-        <h2 class="h2">Components</h2>
-        <p class="opacity-50">Note that Skeleton has no plans to introduce a Card component. <u>This is for testing only</u>.</p>
-      </header>
+    <!-- React -->
+    <h3 class="h3">React</h3>
+    <div class="flex gap-4">
+      <a class="btn" href="https://github.com/skeletonlabs/skeleton-next/blob/main/src/pages/components/cards/PreviewReact.svelte" target="_blank">
+        Implementation
+      </a>
+      <a class="btn" href="https://github.com/skeletonlabs/skeleton-next/blob/main/src/components/Card/Card.tsx" target="_blank">
+        Source
+      </a>
+    </div>
+    <PreviewReact />
 
-      <!-- Svelte -->
-      <h3 class="h3">Svelte</h3>
-      <!-- NOTE: Astro does not accept Snippets; see `Preview.svelte` -->
-      <!-- @ts-ignore -->
-      <PreviewSvelte />
-
-      <!-- React -->
-      <h3 class="h3">React</h3>
-      <CardReact
-        href="https://react.dev/"
-        rootBg="bg-blue-500"
-      >
-        <CardTitle>React Card Component</CardTitle>
-        <CardArticle>The React component article.</CardArticle>
-        <CardFooter>The React component footer.</CardFooter>
-      </CardReact>
-
-      <!-- Astro -->
-      <h3 class="h3">Astro</h3>
-      <CardAstro
-        href="https://docs.astro.build/"
-        rootBg="bg-indigo-500"
-      >
-        <Fragment slot="title">Astro Card Component</Fragment>
-        <Fragment slot="article">The Astro component article.</Fragment>
-        <Fragment slot="footer">The Astro component footer.</Fragment>
-      </CardAstro>
+    <!-- Astro -->
+    <!-- <h3 class="h3">Astro</h3>
+    <a class="btn" href="https://github.com/skeletonlabs/skeleton-next/blob/main/src/components/Card/Card.astro" target="_blank">
+      Source
+    </a>
+    <CardAstro
+      href="https://docs.astro.build/"
+      rootBg="bg-indigo-500"
+    >
+      <Fragment slot="title">Astro Card Component</Fragment>
+      <Fragment slot="article">The Astro component article.</Fragment>
+      <Fragment slot="footer">The Astro component footer.</Fragment>
+    </CardAstro> -->
       
   </section>
 

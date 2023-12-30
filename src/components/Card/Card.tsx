@@ -28,6 +28,24 @@ interface CardFooterProps extends React.PropsWithChildren {
   footerRest?: string;
 }
 
+export const Card: React.FC<CardProps> = ({
+  href,
+  rootBase = "card",
+  rootBg = "bg-slate-800",
+  rootSpaceY = "space-y-2",
+  rootRest = "",
+  children = "",
+}): React.ReactElement => {
+  return (
+    <a
+      href={href}
+      className={`${rootBase} ${rootBg} ${rootSpaceY} ${rootRest}`}
+    >
+      {children}
+    </a>
+  );
+};
+
 export const CardTitle: React.FC<CardTitleProps> = ({
   titleBase = "h2",
   titleRest = "",
@@ -52,22 +70,4 @@ export const CardFooter: React.FC<CardFooterProps> = ({
   children,
 }): React.ReactElement => {
   return <footer className={`${footerBase} ${footerRest}`}>{children}</footer>;
-};
-
-export const Card: React.FC<CardProps> = ({
-  href,
-  rootBase = "card",
-  rootBg = "bg-slate-800",
-  rootSpaceY = "space-y-2",
-  rootRest = "",
-  children = "",
-}): React.ReactElement => {
-  return (
-    <a
-      href={href}
-      className={`${rootBase} ${rootBg} ${rootSpaceY} ${rootRest}`}
-    >
-      {children}
-    </a>
-  );
 };

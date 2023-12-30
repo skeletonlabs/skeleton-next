@@ -28,7 +28,7 @@ interface AccordionItemProps extends React.PropsWithChildren {
 }
 
 interface AccordionControlProps extends React.PropsWithChildren {
-  id: string;
+  controls: string;
   open?: boolean;
   disabled?: boolean;
   // ---
@@ -45,8 +45,10 @@ interface AccordionPanelProps extends React.PropsWithChildren {
   panelPadding?: string;
   panelRounded?: string;
   panelRest?: string;
-  panelAnimDuration?: number;
+  // panelAnimDuration?: number;
 }
+
+// Context ---
 
 interface AccordionContextState {
   selected: string[];
@@ -136,29 +138,31 @@ const AccordionControl: React.FC<AccordionControlProps> = ({
   }, [open]);
 
   const onclick = () => {
-    ctx.selected.includes(id) ? setClosed() : setOpen();
+    ctx.selected.includes(controls) ? setClosed() : setOpen();
   };
 
   const setOpen = () => {
     if (ctx.allowMultiple === false) ctx.setSelected([]);
-    ctx.setSelected((currentValue) => [...currentValue, id]);
+    ctx.setSelected((currentValue) => [...currentValue, controls]);
   };
 
   const setClosed = () => {
-    ctx.setSelected(ctx.selected.filter((itemId) => itemId !== id));
+    ctx.setSelected(ctx.selected.filter((itemId) => itemId !== controls));
   };
 
   return (
     <button
       type="button"
       className={`${controlBase} ${controlHover} ${controlPadding} ${controlRounded} ${controlRest}`}
+      aria-expanded={ctx.selected.includes(controls)}
+      aria-controls={`accordion-panel-${controls}`}
       onClick={onclick}
       disabled={disabled}
     >
       {/* Content */}
       <div className="flex-1">{children}</div>
       {/* State Indicator */}
-      <div>{ctx.selected.includes(id) ? "-" : "+"}</div>
+      <div>{ctx.selected.includes(controls) ? "-" : "+"}</div>
     </button>
   );
 };
@@ -170,14 +174,18 @@ const AccordionPanel: React.FC<AccordionPanelProps> = ({
   panelPadding = "py-2 px-4",
   panelRounded = "",
   panelRest = "",
-  panelAnimDuration = 200,
+  // panelAnimDuration = 200,
   // Children
   children,
 }): React.ReactElement => {
   let ctx = useContext<AccordionContextState>(AccordionContext);
 
   return (
-    <>
+    <div
+      role="region"
+      aria-hidden={ctx.selected.includes(id)}
+      aria-labelledby={id}
+    >
       {ctx.selected.includes(id) && (
         <div
           className={`${panelBase} ${panelPadding} ${panelRounded} ${panelRest}`}
@@ -185,7 +193,7 @@ const AccordionPanel: React.FC<AccordionPanelProps> = ({
           {children}
         </div>
       )}
-    </>
+    </div>
   );
 };
 

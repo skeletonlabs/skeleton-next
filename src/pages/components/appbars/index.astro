@@ -2,6 +2,7 @@
 import LayoutRoot from "@layouts/LayoutRoot.astro";
 // Components
 import PreviewSvelte from "./PreviewSvelte.svelte";
+import { PreviewReact } from "./PreviewReact";
 ---
 
 <!-- prettier-ignore -->
@@ -31,10 +32,10 @@ import PreviewSvelte from "./PreviewSvelte.svelte";
     <!-- Svelte -->
     <h3 class="h3">Svelte 5</h3>
     <div class="flex gap-4">
-      <a class="btn" href="https://github.com/skeletonlabs/skeleton-next/blob/main/src/pages/components/cards/PreviewSvelte.svelte" target="_blank">
+      <a class="btn" href="https://github.com/skeletonlabs/skeleton-next/blob/main/src/pages/components/appbars/PreviewSvelte.svelte" target="_blank">
         Implementation
       </a>
-      <a class="btn" href="https://github.com/skeletonlabs/skeleton-next/blob/main/src/components/Card/Card.svelte" target="_blank">
+      <a class="btn" href="https://github.com/skeletonlabs/skeleton-next/blob/main/src/components/AppBar/AppBar.svelte" target="_blank">
         Source
       </a>
     </div>
@@ -45,13 +46,15 @@ import PreviewSvelte from "./PreviewSvelte.svelte";
     <!-- React -->
     <h3 class="h3">React</h3>
     <div class="flex gap-4">
-      <a class="btn" href="https://github.com/skeletonlabs/skeleton-next/blob/main/src/pages/components/cards/PreviewReact.svelte" target="_blank">
+      <a class="btn" href="https://github.com/skeletonlabs/skeleton-next/blob/main/src/pages/components/appbars/PreviewReact.svelte" target="_blank">
         Implementation
       </a>
-      <a class="btn" href="https://github.com/skeletonlabs/skeleton-next/blob/main/src/components/Card/Card.tsx" target="_blank">
+      <a class="btn" href="https://github.com/skeletonlabs/skeleton-next/blob/main/src/components/AppBar/AppBar.tsx" target="_blank">
         Source
       </a>
     </div>
+
+    <PreviewReact />
 
     <!-- Astro -->
     <!-- <h3 class="h3">Astro</h3>

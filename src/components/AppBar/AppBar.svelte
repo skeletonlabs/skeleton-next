@@ -11,23 +11,23 @@
 		rootGridColumns?: string;
 		rootGap?: string;
 		regionRowMain?: string;
-    regionRowHeadline?: string;
-    leadSnippetClasses?: string;
-    defaultSnippetClasses?: string;
-    trailSnippetClasses?: string;
+		regionRowHeadline?: string;
+		leadSnippetClasses?: string;
+		defaultSnippetClasses?: string;
+		trailSnippetClasses?: string;
 
 		/* Snippets */
-    regionRowHeadlineSnippet?: Snippet;
+		regionRowHeadlineSnippet?: Snippet;
 		leadSnippet?: Snippet;
-		defaultSnippet?: Snippet;
+		children?: Snippet;
 		trailSnippet?: Snippet;
 
-		/* A11y */
+		/* Accessibility */
 		label?: string;
 		labelledby?: string;
 
-    /* Rest */
-    class?: string;
+		/* Rest */
+		class?: string;
 	}
 
 	let {
@@ -37,37 +37,36 @@
 		rootShadow = '',
 		rootSpacing = "space-y-4",
 		rootGridColumns = "grid-cols-[auto_1fr_auto]",
-    rootGap = "gap-4",
-    regionRowMain = '',
-    regionRowHeadline= '',
-    leadSnippetClasses= '',
-    defaultSnippetClasses= '',
-    trailSnippetClasses= '',
+		rootGap = "gap-4",
+		regionRowMain = '',
+		regionRowHeadline= '',
+		leadSnippetClasses= '',
+		defaultSnippetClasses= '',
+		trailSnippetClasses= '',
 		regionRowHeadlineSnippet,
 		leadSnippet,
-		defaultSnippet,
+		children: defaultSnippet,
 		trailSnippet,
 		label = '',
 		labelledby = '',
-    /* Unsure what to alias this as "class" is reserved in js, alternatives: className, restClass, restClassName, clazz */
-    class: className = ''
+		/* Unsure what to alias this as "class" is reserved in js, alternatives: className, restClass, restClassName, clazz */
+		class: className = ''
 	} = $props<AppBarProps>();
 
-  const joined = (...items: string[]) => items.join(" ");
-  const cBase = "flex flex-col";
-  const cRowMain = "grid items-center";
-  const cLeadSnippet = "flex-none flex justify-between items-center";
-  const cDefaultSnippet = "flex-auto";
-  const cTrailSnippet = "flex-none flex items-center space-x-4";
+	const joined = (...items: string[]) => items.join(" ");
+	const cBase = "flex flex-col";
+	const cRowMain = "grid items-center";
+	const cLeadSnippet = "flex-none flex justify-between items-center";
+	const cDefaultSnippet = "flex-auto";
+	const cTrailSnippet = "flex-none flex items-center space-x-4";
 
-  const classesBase = $derived(joined(cBase, rootBackground, rootBorder, rootSpacing, rootPadding, rootShadow, className));
-  const classesRowMain = $derived(joined(cRowMain, rootGridColumns, rootGap, regionRowMain));
-  const classesRowHeadline = $derived(joined(regionRowHeadline));
-  const classesLeadSnippet = $derived(joined(cLeadSnippet, leadSnippetClasses));
-  const classesDefaultSnippet = $derived(joined(cDefaultSnippet, defaultSnippetClasses));
-  const classesTrailSnippet = $derived(joined(cTrailSnippet, trailSnippetClasses));
+	const classesBase = $derived(joined(cBase, rootBackground, rootBorder, rootSpacing, rootPadding, rootShadow, className));
+	const classesRowMain = $derived(joined(cRowMain, rootGridColumns, rootGap, regionRowMain));
+	const classesRowHeadline = $derived(joined(regionRowHeadline));
+	const classesLeadSnippet = $derived(joined(cLeadSnippet, leadSnippetClasses));
+	const classesDefaultSnippet = $derived(joined(cDefaultSnippet, defaultSnippetClasses));
+	const classesTrailSnippet = $derived(joined(cTrailSnippet, trailSnippetClasses));
 </script>
-
 
 <div class="app-bar {classesBase}" data-testid="app-bar" role="toolbar" aria-label={label} aria-labelledby={labelledby}>
 	<!-- Row: Main -->

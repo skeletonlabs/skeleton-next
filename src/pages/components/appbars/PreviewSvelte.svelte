@@ -4,6 +4,6 @@
 
 <AppBarSvelte rootBorder="border border-orange-500">
   {#snippet leadSnippet()}Lead{/snippet}
-  {#snippet defaultSnippet()}Default{/snippet}
+  Default
   {#snippet trailSnippet()}Trail  {/snippet}
 </AppBarSvelte>

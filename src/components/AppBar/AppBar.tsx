@@ -1,8 +1,7 @@
 "use client"
 import { useEffect, useState } from "react";
-import { composeComponents } from "src/lib/react/compose";
 
-interface AppBarRootProps extends React.PropsWithChildren {
+interface AppBarProps extends React.PropsWithChildren {
   /* Styles */
   rootBackground?: string;
   rootBorder?: string;
@@ -11,18 +10,19 @@ interface AppBarRootProps extends React.PropsWithChildren {
   rootSpacing?: string;
   rootGridColumns?: string;
   rootGap?: string;
-  rootRegionRowMain?: string;
-
-  /* A11y */
-  label?: string;
-  labelledby?: string;
 
   /* Rest */
-  class?: string;
+  className?: string;
+}
+
+interface AppBarRegionRowMainProps extends React.PropsWithChildren {
+  regionRowMainGridColumns?: string;
+  regionRowMainGap?: string;
+  className?: string;
 }
 
 interface AppBarRegionRowHeadlineProps extends React.PropsWithChildren {
-  regionRowHeadLineClasses?: string;
+  className?: string;
 }
 
 interface AppBarLeadProps extends React.PropsWithChildren {
@@ -37,59 +37,93 @@ interface AppBarTrailProps extends React.PropsWithChildren {
   trailClasses?: string;
 }
 
-const AppBarRoot: React.FC<AppBarRootProps> = ({
+const joined = (...items: string[]) => items.join(" ");
+
+export const AppBar: React.FC<AppBarProps> = ({
   rootBackground = "bg-surface-100-800-token",
   rootBorder = '',
   rootPadding = 'p-4',
   rootShadow = '',
   rootSpacing = "space-y-4",
-  rootGridColumns = "grid-cols-[auto_1fr_auto]",
-  rootRegionRowMain = '',
-  rootGap = "gap-4",
-  label, 
-  labelledby, 
-  class: className = '',
+  className = '',
   children 
 }) => {
 
-  
-
-  const joined = (...items: string[]) => items.join(" ");
   const cBase = "flex flex-col";
-  const cRowMain = "grid items-center";
 
   const [classesBase, setClassesBase] = useState(joined(cBase, rootBackground, rootBorder, rootPadding, rootShadow, rootSpacing, className))
-  const [classesRowMain, setClassesRowMain] = useState(joined(cRowMain, rootGridColumns, rootGap, rootRegionRowMain))
 
   useEffect(() => {
     setClassesBase(joined(cBase, rootBackground, rootBorder, rootPadding, rootShadow, rootSpacing, className))
   }, [rootBackground, rootBorder, rootPadding, rootShadow, rootSpacing, className]);
 
-  useEffect(() => {
-    setClassesRowMain(joined(cRowMain, rootGridColumns, rootGap, rootRegionRowMain))
-  }, [rootGridColumns, rootGap, rootRegionRowMain]);
-
   return (
-    <div className={classesBase}>
+    <div className={`app-bar ${classesBase}`}>
         {children}
     </div>
   )
 };
 
-const AppBarRowMain: React.FC<AppBarRegionRowHeadlineProps> = ({
-  regionRowHeadLineClasses = '',
-  children 
+export const AppBarRowMain: React.FC<AppBarRegionRowMainProps> = ({
+  regionRowMainGridColumns = 'grid-cols-[auto_1fr_auto]',
+  regionRowMainGap = 'gap-4',
+  className = '',
+  children
 }) => {
-  const joined = (...items: string[]) => items.join(" ");
-  const cBase = "flex flex-row";
-  const [classesBase, setClassesBase] = useState(joined(cBase, regionRowHeadLineClasses))
+  const cRowMain = "grid items-center";
+
+  const [classesRowMain, setClassesRowMain] = useState(joined(cRowMain, regionRowMainGridColumns, regionRowMainGap, className))
 
   useEffect(() => {
-    setClassesBase(joined(cBase, regionRowHeadLineClasses))
-  }, [regionRowHeadLineClasses]);
+    setClassesRowMain(joined(cRowMain, regionRowMainGridColumns, regionRowMainGap, className))
+  }, [regionRowMainGridColumns, regionRowMainGap, className]);
 
   return (
-    <div className={classesBase}>
+    <div className={`app-bar-row-main ${classesRowMain}`}>
+        {children}
+    </div>
+  )
+}
+
+export const AppBarRowHeadline: React.FC<AppBarRegionRowHeadlineProps> = ({
+  className = '',
+  children 
+}) => {
+  return (
+    <div className={className}>
+        {children}
+    </div>
+  )
+}
+
+export const AppBarLead: React.FC<AppBarLeadProps> = ({
+  leadClasses = '',
+  children 
+}) => {
+  return (
+    <div className={leadClasses}>
+        {children}
+    </div>
+  )
+}
+
+export const AppBarDefault: React.FC<AppBarDefaultProps> = ({
+  defaultClasses = '',
+  children 
+}) => {
+  return (
+    <div className={defaultClasses}>
+        {children}
+    </div>
+  )
+}
+
+export const AppBarTrail: React.FC<AppBarTrailProps> = ({
+  trailClasses = '',
+  children 
+}) => {
+  return (
+    <div className={trailClasses}>
         {children}
     </div>
   )

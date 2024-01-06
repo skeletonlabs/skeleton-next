@@ -1,0 +1,59 @@
+---
+import LayoutRoot from "@layouts/LayoutRoot.astro";
+// Components
+import PreviewSvelte from "./PreviewSvelte.svelte";
+---
+
+<!-- prettier-ignore -->
+<LayoutRoot title="Homepage" classList="p-10 space-y-10">
+
+  <!-- Navigation -->
+  <a class="btn bg-white/5" href="/">&larr; Back</a>
+
+  <!-- Header -->
+  <header class="flex flex-col gap-4">
+        <h1 class="h1">Avatars</h1>
+        <p>This represents a nearly feature complete port of the <a class="anchor" href="https://www.skeleton.dev/components/avatars" target="_blank">Skeleton Avatar</a>, but updated to use the newest standards and paradigms.</p>
+        <div class="flex gap-4 pb-4">
+          <a class="btn" href="https://github.com/skeletonlabs/skeleton-next/blob/main/src/pages/components/avatars/index.astro" target="_blank">
+            View page source
+          </a>
+          <a class="btn" href="https://github.com/skeletonlabs/skeleton/issues/2384" target="_blank">
+            GitHub Discussion
+          </a>
+        </div>
+    </header>
+
+    <hr class="block bg-white/10 border-0 h-[1px]" />
+
+    <!-- Components -->
+    <section class="space-y-4">
+      <h2 class="h2">Components</h2>
+
+      <!-- Svelte -->
+      <h3 class="h3">Svelte 5</h3>
+      <div class="flex gap-4 pb-4">
+        <a class="btn" href="https://github.com/skeletonlabs/skeleton-next/blob/main/src/pages/components/avatars/PreviewSvelte.svelte" target="_blank">
+          Implementation
+        </a>
+        <a class="btn" href="https://github.com/skeletonlabs/skeleton-next/blob/main/src/components/Avatar/Avatar.svelte" target="_blank">
+          Source (Avatar)
+        </a>
+      </div>
+      <PreviewSvelte client:load />
+
+      <!-- React -->
+      <h3 class="h3">React</h3>
+      <div class="flex gap-4 pb-4">
+        <a class="btn" href="https://github.com/skeletonlabs/skeleton-next/blob/main/src/pages/components/avatars/PreviewReact.tsx" target="_blank">
+          Implementation
+        </a>
+        <a class="btn" href="https://github.com/skeletonlabs/skeleton-next/blob/main/src/components/Avatar/Avatar.tsx" target="_blank">
+          Source
+        </a>
+      </div>
+      <!-- <PreviewReact client:load /> -->
+
+  </section>
+
+</LayoutRoot>

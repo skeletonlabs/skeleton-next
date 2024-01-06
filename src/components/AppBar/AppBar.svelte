@@ -2,6 +2,16 @@
 	import type { Snippet } from "svelte";
 
 	interface AppBarProps {
+		/* Accessibility */
+		label?: string;
+		labelledby?: string;
+
+		/* Snippets */
+		rowHeadline?: Snippet;
+		lead?: Snippet;
+		children?: Snippet;
+		trail?: Snippet;
+
 		/* Styling */
 		rootBackground?: string;
 		rootBorder?: string;
@@ -11,23 +21,10 @@
 		rootGridColumns?: string;
 		rootGap?: string;
 		regionRowMain?: string;
-		regionRowHeadline?: string;
-		leadSnippetClasses?: string;
-		defaultSnippetClasses?: string;
-		trailSnippetClasses?: string;
-
-		/* Snippets */
-		regionRowHeadlineSnippet?: Snippet;
-		leadSnippet?: Snippet;
-		children?: Snippet;
-		trailSnippet?: Snippet;
-
-		/* Accessibility */
-		label?: string;
-		labelledby?: string;
-
-		/* Rest */
-		class?: string;
+		rowHeadlineRest?: string;
+		leadRest?: string;
+		defaultRest?: string;
+		trailRest?: string;
 	}
 
 	let {
@@ -39,61 +36,52 @@
 		rootGridColumns = "grid-cols-[auto_1fr_auto]",
 		rootGap = "gap-4",
 		regionRowMain = '',
-		regionRowHeadline= '',
-		leadSnippetClasses= '',
-		defaultSnippetClasses= '',
-		trailSnippetClasses= '',
-		regionRowHeadlineSnippet,
-		leadSnippet,
-		children: defaultSnippet,
-		trailSnippet,
+		rowHeadlineRest = '',
+		leadRest = '',
+		defaultRest = '',
+		trailRest = '',
+		rowHeadline,
+		lead,
+		children,
+		trail,
 		label = '',
 		labelledby = '',
-		/* Unsure what to alias this as "class" is reserved in js, alternatives: className, restClass, restClassName, clazz */
-		class: className = ''
 	} = $props<AppBarProps>();
 
-	const joined = (...items: string[]) => items.join(" ");
-	const cBase = "flex flex-col";
-	const cRowMain = "grid items-center";
-	const cLeadSnippet = "flex-none flex justify-between items-center";
-	const cDefaultSnippet = "flex-auto";
-	const cTrailSnippet = "flex-none flex items-center space-x-4";
+	const rootBase = "flex flex-col";
+	const rowMainBase = "grid items-center";
+	const leadBase = "flex-none flex justify-between items-center";
+	const defaultBase = "flex-auto";
+	const trailBase = "flex-none flex items-center space-x-4";
 
-	const classesBase = $derived(joined(cBase, rootBackground, rootBorder, rootSpacing, rootPadding, rootShadow, className));
-	const classesRowMain = $derived(joined(cRowMain, rootGridColumns, rootGap, regionRowMain));
-	const classesRowHeadline = $derived(joined(regionRowHeadline));
-	const classesLeadSnippet = $derived(joined(cLeadSnippet, leadSnippetClasses));
-	const classesDefaultSnippet = $derived(joined(cDefaultSnippet, defaultSnippetClasses));
-	const classesTrailSnippet = $derived(joined(cTrailSnippet, trailSnippetClasses));
 </script>
 
-<div class="app-bar {classesBase}" data-testid="app-bar" role="toolbar" aria-label={label} aria-labelledby={labelledby}>
+<div class="{rootBase} {rootBackground} {rootBorder} {rootSpacing} {rootPadding} {rootShadow}" data-testid="app-bar" role="toolbar" aria-label={label} aria-labelledby={labelledby}>
 	<!-- Row: Main -->
-	<div class="app-bar-row-main {classesRowMain}">
+	<div class="{rowMainBase} {rootGridColumns} {rootGap} {regionRowMain}">
 		<!-- Slot: lead -->
-		{#if leadSnippet}
-			<div class="app-bar-slot-lead {classesLeadSnippet}">
-        {@render leadSnippet()}
-      </div>
+		{#if lead}
+			<div class="{leadBase} {leadRest}">
+				{@render lead()}
+			</div>
 		{/if}
 		<!-- Slot: default -->
-    {#if defaultSnippet}
-      <div class="app-bar-slot-default {classesDefaultSnippet}">
-        {@render defaultSnippet()}
+    {#if children}
+      <div class="{defaultBase} {defaultRest}">
+        {@render children()}
       </div>
     {/if}
 		<!-- Slot: trail -->
-    {#if trailSnippet}
-      <div class="app-bar-slot-trail {classesTrailSnippet}">
-        {@render trailSnippet()}
+    {#if trail}
+      <div class="{trailBase} {trailRest}">
+        {@render trail()}
       </div>
     {/if}
 	</div>
 	<!-- Row: Headline -->
-	{#if regionRowHeadlineSnippet}
-		<div class="app-bar-row-headline {classesRowHeadline}">
-      {@render regionRowHeadlineSnippet()}
-    </div>
+	{#if rowHeadline}
+		<div class="{rowHeadlineRest}">
+			{@render rowHeadline()}
+		</div>
 	{/if}
 </div>

@@ -3,7 +3,7 @@
 </script>
 
 <AppBarSvelte rootBorder="border border-orange-500">
-  {#snippet leadSnippet()}Lead{/snippet}
+  {#snippet lead()}Lead{/snippet}
   Default
-  {#snippet trailSnippet()}Trail  {/snippet}
+  {#snippet trail()}Trail  {/snippet}
 </AppBarSvelte>

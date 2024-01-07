@@ -1,13 +1,13 @@
 html,
 body {
-	@apply h-full;
+  @apply h-full;
 }
 body {
-	@apply bg-neutral-900 text-white p-4;
+  @apply bg-neutral-900 text-white p-4;
 }
 
 *:disabled {
-	@apply opacity-50 cursor-not-allowed pointer-events-none;
+  @apply opacity-50 cursor-not-allowed pointer-events-none;
 }
 
 /* Elemements --- */
@@ -18,34 +18,34 @@ body {
 .h4,
 .h5,
 .h6 {
-	@apply font-bold;
+  @apply font-bold;
 }
 .h1 {
-	@apply text-5xl;
+  @apply text-5xl;
 }
 .h2 {
-	@apply text-3xl;
+  @apply text-3xl;
 }
 .h3 {
-	@apply text-lg;
+  @apply text-lg;
 }
 
 .anchor {
-	@apply text-white/50 hover:text-white/100 underline;
+  @apply text-white/50 hover:text-white/100 underline;
 }
 
 .hr {
-	@apply block bg-white/10 border-0 h-[1px];
+  @apply block bg-white/10 border-0 h-[1px];
 }
 
 /* Buttons */
 
 .btn {
-	@apply border border-white/10 hover:border-white/30 text-white py-2 px-4 rounded;
+  @apply border border-white/10 hover:border-white/30 text-white py-2 px-4 rounded;
 }
 
 /* Card */
 
 .card {
-	@apply block p-4 rounded;
+  @apply block p-4 rounded;
 }

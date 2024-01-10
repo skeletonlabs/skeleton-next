@@ -5,12 +5,12 @@
     interface AccordionProps {
         multiple?: boolean;
         // Root
-        rootBase?: string;
-        rootPadding?: string;
-        rootSpacingY?: string;
-        rootRounded?: string;
-        rootWidth?: string;
-        rootRest?: string;
+        base?: string;
+        padding?: string;
+        spaceY?: string;
+        rounded?: string;
+        width?: string;
+        classes?: string;
         // Snippets
         children: Snippet;
         iconOpen?: Snippet;
@@ -20,12 +20,12 @@
     let {
         multiple = false,
         // Root
-        rootBase = '',
-        rootPadding = '',
-        rootSpacingY = 'space-y-1',
-        rootRounded = 'rounded',
-        rootWidth = 'w-full',
-        rootRest = '',
+        base = '',
+        padding = '',
+        spaceY = 'space-y-1',
+        rounded = 'rounded',
+        width = 'w-full',
+        classes = '',
         // Snippets
         children,
         iconOpen,
@@ -41,6 +41,6 @@
 
 <!-- @component The Accordion parent element. -->
 
-<div class="{rootBase} {rootPadding} {rootSpacingY} {rootRounded} {rootWidth} {rootRest}" data-testid="accordion">
+<div class="{base} {padding} {spaceY} {rounded} {width} {classes}" data-testid="accordion">
     {@render children()}
 </div>

@@ -4,47 +4,50 @@ import React, {
   createContext,
   useContext,
   useState,
+  useEffect,
   type Dispatch,
   type SetStateAction,
-  useEffect,
+  type ReactNode,
+  useRef,
 } from "react";
 
 interface AccordionProps extends React.PropsWithChildren {
   multiple?: boolean;
   // ---
-  rootBase?: string;
-  rootPadding?: string;
-  rootSpacingY?: string;
-  rootRounded?: string;
-  rootWidth?: string;
-  rootRest?: string;
+  base?: string;
+  padding?: string;
+  spaceY?: string;
+  rounded?: string;
+  width?: string;
+  classes?: string;
 }
 
 interface AccordionItemProps extends React.PropsWithChildren {
-  rootBase?: string;
-  rootSpacingY?: string;
-  rootRest?: string;
+  base?: string;
+  spaceY?: string;
+  classes?: string;
 }
 
 interface AccordionControlProps extends React.PropsWithChildren {
   controls: string;
   open?: boolean;
   disabled?: boolean;
-  // ---
-  controlBase?: string;
-  controlHover?: string;
-  controlPadding?: string;
-  controlRounded?: string;
-  controlRest?: string;
+  // Root
+  base?: string;
+  hover?: string;
+  padding?: string;
+  rounded?: string;
+  classes?: string;
+  // Slots
+  lead?: ReactNode;
 }
 
 interface AccordionPanelProps extends React.PropsWithChildren {
   id: string;
-  panelBase?: string;
-  panelPadding?: string;
-  panelRounded?: string;
-  panelRest?: string;
-  // panelAnimDuration?: number;
+  base?: string;
+  padding?: string;
+  rounded?: string;
+  classes?: string;
 }
 
 // Context ---
@@ -67,12 +70,12 @@ export const AccordionContext = createContext<AccordionContextState>({
 export const Accordion: React.FC<AccordionProps> = ({
   multiple = false,
   // Root
-  rootBase = "",
-  rootPadding = "",
-  rootSpacingY = "space-y-1",
-  rootRounded = "rounded",
-  rootWidth = "w-full",
-  rootRest = "",
+  base = "",
+  padding = "",
+  spaceY = "space-y-1",
+  rounded = "rounded",
+  width = "w-full",
+  classes = "",
   // Children
   children,
 }): React.ReactElement => {
@@ -81,7 +84,7 @@ export const Accordion: React.FC<AccordionProps> = ({
 
   return (
     <div
-      className={`${rootBase} ${rootPadding} ${rootSpacingY} ${rootRounded} ${rootWidth} ${rootRest}`}
+      className={`${base} ${padding} ${spaceY} ${rounded} ${width} ${classes}`}
       data-testid="accordion"
     >
       <AccordionContext.Provider
@@ -100,15 +103,15 @@ export const Accordion: React.FC<AccordionProps> = ({
 
 /** Component: An Accordion child element. */
 export const AccordionItem: React.FC<AccordionItemProps> = ({
-  rootBase = "",
-  rootSpacingY = "",
-  rootRest = "",
+  base = "",
+  spaceY = "",
+  classes = "",
   // Children
   children,
 }): React.ReactElement => {
   return (
     <div
-      className={`${rootBase} ${rootSpacingY} ${rootRest}`}
+      className={`${base} ${spaceY} ${classes}`}
       data-testid="accordion-item"
     >
       {children}
@@ -121,12 +124,13 @@ export const AccordionControl: React.FC<AccordionControlProps> = ({
   open = false,
   disabled = false,
   // Control
-  controlBase = "flex text-start items-center space-x-4 w-full",
-  controlHover = "hover:bg-white/5",
-  controlPadding = "py-2 px-4",
-  controlRounded = "rounded",
-  controlRest = "",
+  base = "flex text-start items-center space-x-4 w-full",
+  hover = "hover:bg-white/5",
+  padding = "py-2 px-4",
+  rounded = "rounded",
+  classes = "",
   // Children
+  lead,
   children,
 }): React.ReactElement => {
   let ctx = useContext<AccordionContextState>(AccordionContext);
@@ -151,12 +155,14 @@ export const AccordionControl: React.FC<AccordionControlProps> = ({
   return (
     <button
       type="button"
-      className={`${controlBase} ${controlHover} ${controlPadding} ${controlRounded} ${controlRest}`}
+      className={`${base} ${hover} ${padding} ${rounded} ${classes}`}
       aria-expanded={ctx.selected.includes(controls)}
       aria-controls={`accordion-panel-${controls}`}
       onClick={onclick}
       disabled={disabled}
     >
+      {/* Lead */}
+      {lead && <div>{lead}</div>}
       {/* Content */}
       <div className="flex-1">{children}</div>
       {/* State Indicator */}
@@ -168,11 +174,10 @@ export const AccordionControl: React.FC<AccordionControlProps> = ({
 export const AccordionPanel: React.FC<AccordionPanelProps> = ({
   id,
   // Panel
-  panelBase = "",
-  panelPadding = "py-2 px-4",
-  panelRounded = "",
-  panelRest = "",
-  // panelAnimDuration = 200,
+  base = "",
+  padding = "py-2 px-4",
+  rounded = "",
+  classes = "",
   // Children
   children,
 }): React.ReactElement => {
@@ -184,13 +189,65 @@ export const AccordionPanel: React.FC<AccordionPanelProps> = ({
       aria-hidden={ctx.selected.includes(id)}
       aria-labelledby={id}
     >
-      {ctx.selected.includes(id) && (
-        <div
-          className={`${panelBase} ${panelPadding} ${panelRounded} ${panelRest}`}
-        >
+      {/* {ctx.selected.includes(id) && (
+        <div className={`${base} ${padding} ${rounded} ${classes}`}>
           {children}
         </div>
-      )}
+      )} */}
+      <AnimationWrapper show={ctx.selected.includes(id)}>
+        <div className={`${base} ${padding} ${rounded} ${classes}`}>
+          {children}
+        </div>
+      </AnimationWrapper>
     </div>
+  );
+};
+
+// Animation ---
+// NOTE: this is a test of the Web Animations API
+
+interface ActionWrapperProps extends React.PropsWithChildren {
+  show: boolean;
+  from?: Record<string, unknown>;
+  to?: Record<string, unknown>;
+  unMountAnimation?: any;
+  options?: Record<string, unknown>;
+}
+
+export const AnimationWrapper: React.FC<ActionWrapperProps> = ({
+  show,
+  children,
+  from = { maxHeight: 0 },
+  to = { maxHeight: "300px" },
+  unMountAnimation,
+  options = { duration: 200, fill: "forwards" },
+}) => {
+  const elementRef = useRef<any>(null);
+  const [removeState, setRemove] = useState(!show);
+
+  useEffect(() => {
+    const childElement = elementRef.current;
+    if (show) {
+      setRemove(false);
+      if (!childElement) return;
+      childElement.animate([from, to], options);
+    } else {
+      if (!childElement) return;
+      const animation = childElement.animate(
+        unMountAnimation || [to, from],
+        options
+      );
+      animation.onfinish = () => {
+        setRemove(true);
+      };
+    }
+  }, [show, removeState]);
+
+  return (
+    !removeState && (
+      <div ref={elementRef} className="">
+        {children}
+      </div>
+    )
   );
 };

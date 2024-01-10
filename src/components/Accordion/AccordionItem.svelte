@@ -9,10 +9,11 @@
         id?: string;
         open?: boolean;
         disabled?: boolean;
+        animDuration?: number;
         // Root
-        rootBase?: string;
-        rootSpacingY?: string;
-        rootRest?: string;
+        base?: string;
+        spaceY?: string;
+        classes?: string;
         // Control
         controlBase?: string;
         controlHover?: string;
@@ -24,7 +25,6 @@
         panelPadding?: string;
         panelRounded?: string;
         panelRest?: string;
-        panelAnimDuration?: number;
         // Events
         ontoggle?: (toggleEvent: ToggleEvent) => void;
         // Snippets
@@ -34,13 +34,14 @@
     }
 
     let {
-        id = String(Math.random()), // <-- FIXME: for the prototype only
+        id = String(Math.random()), // <-- FIXME: prototype only
         open,
         disabled = false,
+        animDuration = 200,
         // Root
-        rootBase = '',
-        rootSpacingY = "",
-        rootRest = '',
+        base = '',
+        spaceY = '',
+        classes = '',
         // Control
         controlBase = "flex text-start items-center space-x-4 w-full",
         controlHover = "hover:bg-white/5",
@@ -52,7 +53,6 @@
         panelPadding = 'py-2 px-4',
         panelRounded = '',
         panelRest = '',
-        panelAnimDuration = 200,
         // Events
         ontoggle = () => {},
         // Snippets
@@ -98,7 +98,7 @@
 
 <!-- @component An Accordion child element. -->
 
-<div class="{rootBase} {rootSpacingY} {rootRest}" data-testid="accordion-item">
+<div class="{base} {spaceY} {classes}" data-testid="accordion-item">
     <!-- Control -->
     <button
         type="button"
@@ -125,7 +125,7 @@
     {#if panel && isOpen}
         <div
             class="{panelBase} {panelPadding} {panelRounded} {panelRest}"
-            transition:slide={{ duration: panelAnimDuration }}
+            transition:slide={{ duration: animDuration }}
             id="accordion-panel-{id}"
             role="region"
 			aria-hidden={isOpen}

@@ -8,8 +8,9 @@ import React, {
   type Dispatch,
   type SetStateAction,
   type ReactNode,
-  useRef,
 } from "react";
+import { AnimationWrapper } from "@components/utils/AnimationWrapper.tsx";
+import { reactCompose } from "@components/utils/ReactCompose";
 
 interface AccordionProps extends React.PropsWithChildren {
   multiple?: boolean;
@@ -59,7 +60,7 @@ interface AccordionContextState {
   setAllowMultiple: Dispatch<SetStateAction<boolean>>;
 }
 
-export const AccordionContext = createContext<AccordionContextState>({
+const AccordionContext = createContext<AccordionContextState>({
   selected: [],
   setSelected: () => {},
   allowMultiple: false,
@@ -67,7 +68,7 @@ export const AccordionContext = createContext<AccordionContextState>({
 });
 
 /** Component: An Accordion child element. */
-export const Accordion: React.FC<AccordionProps> = ({
+const AccordionRoot: React.FC<AccordionProps> = ({
   multiple = false,
   // Root
   base = "",
@@ -102,7 +103,7 @@ export const Accordion: React.FC<AccordionProps> = ({
 };
 
 /** Component: An Accordion child element. */
-export const AccordionItem: React.FC<AccordionItemProps> = ({
+const AccordionItem: React.FC<AccordionItemProps> = ({
   base = "",
   spaceY = "",
   classes = "",
@@ -119,7 +120,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
   );
 };
 
-export const AccordionControl: React.FC<AccordionControlProps> = ({
+const AccordionControl: React.FC<AccordionControlProps> = ({
   controls,
   open = false,
   disabled = false,
@@ -171,7 +172,7 @@ export const AccordionControl: React.FC<AccordionControlProps> = ({
   );
 };
 
-export const AccordionPanel: React.FC<AccordionPanelProps> = ({
+const AccordionPanel: React.FC<AccordionPanelProps> = ({
   id,
   // Panel
   base = "",
@@ -189,65 +190,19 @@ export const AccordionPanel: React.FC<AccordionPanelProps> = ({
       aria-hidden={ctx.selected.includes(id)}
       aria-labelledby={id}
     >
-      {/* {ctx.selected.includes(id) && (
-        <div className={`${base} ${padding} ${rounded} ${classes}`}>
-          {children}
-        </div>
-      )} */}
       <AnimationWrapper show={ctx.selected.includes(id)}>
         <div className={`${base} ${padding} ${rounded} ${classes}`}>
           {children}
         </div>
       </AnimationWrapper>
+      {/* NOTE: AnimationWrapper replaces: */}
+      {/* {ctx.selected.includes(id) && ( ... )} */}
     </div>
   );
 };
 
-// Animation ---
-// NOTE: this is a test of the Web Animations API
-
-interface ActionWrapperProps extends React.PropsWithChildren {
-  show: boolean;
-  from?: Record<string, unknown>;
-  to?: Record<string, unknown>;
-  unMountAnimation?: any;
-  options?: Record<string, unknown>;
-}
-
-export const AnimationWrapper: React.FC<ActionWrapperProps> = ({
-  show,
-  children,
-  from = { maxHeight: 0 },
-  to = { maxHeight: "300px" },
-  unMountAnimation,
-  options = { duration: 200, fill: "forwards" },
-}) => {
-  const elementRef = useRef<any>(null);
-  const [removeState, setRemove] = useState(!show);
-
-  useEffect(() => {
-    const childElement = elementRef.current;
-    if (show) {
-      setRemove(false);
-      if (!childElement) return;
-      childElement.animate([from, to], options);
-    } else {
-      if (!childElement) return;
-      const animation = childElement.animate(
-        unMountAnimation || [to, from],
-        options
-      );
-      animation.onfinish = () => {
-        setRemove(true);
-      };
-    }
-  }, [show, removeState]);
-
-  return (
-    !removeState && (
-      <div ref={elementRef} className="">
-        {children}
-      </div>
-    )
-  );
-};
+export const Accordion = reactCompose(AccordionRoot, {
+  Item: AccordionItem,
+  Control: AccordionControl,
+  Panel: AccordionPanel,
+});

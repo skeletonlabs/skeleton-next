@@ -4,70 +4,65 @@ import React from "react";
 
 interface CardProps extends React.PropsWithChildren {
   href: string;
-  rootBase?: string;
-  rootBg?: string;
-  rootSpaceY?: string;
-  rootRest?: string;
+  // Root
+  base?: string;
+  bg?: string;
+  spaceY?: string;
+  classes?: string;
 }
 
 interface CardTitleProps extends React.PropsWithChildren {
-  title?: string;
-  titleBase?: string;
-  titleRest?: string;
+  base?: string;
+  classes?: string;
 }
 
 interface CardArticleProps extends React.PropsWithChildren {
-  article?: string;
-  articleBase?: string;
-  articleRest?: string;
+  base?: string;
+  classes?: string;
 }
 
 interface CardFooterProps extends React.PropsWithChildren {
-  footer?: string;
-  footerBase?: string;
-  footerRest?: string;
+  base?: string;
+  classes?: string;
 }
 
 export const Card: React.FC<CardProps> = ({
   href,
-  rootBase = "card",
-  rootBg = "bg-slate-800",
-  rootSpaceY = "space-y-2",
-  rootRest = "",
-  children = "",
+  // Root
+  base = "card",
+  bg = "bg-slate-800",
+  spaceY = "space-y-2",
+  classes = "",
+  // Children
+  children,
 }): React.ReactElement => {
   return (
-    <a
-      href={href}
-      className={`${rootBase} ${rootBg} ${rootSpaceY} ${rootRest}`}
-    >
+    <a href={href} className={`${base} ${bg} ${spaceY} ${classes}`}>
       {children}
     </a>
   );
 };
 
 export const CardTitle: React.FC<CardTitleProps> = ({
-  titleBase = "h2",
-  titleRest = "",
-  children = "",
+  base = "h2",
+  classes = "",
+  children,
 }): React.ReactElement => {
-  return <h2 className={`${titleBase} ${titleRest}`}>{children}</h2>;
+  return <h2 className={`${base} ${classes}`}>{children}</h2>;
 };
 
 export const CardArticle: React.FC<CardArticleProps> = ({
-  articleBase = "",
-  articleRest = "",
+  base = "",
+  classes = "",
   children,
 }): React.ReactElement => {
-  return (
-    <article className={`${articleBase} ${articleRest}`}>{children}</article>
-  );
+  return <article className={`${base} ${classes}`}>{children}</article>;
 };
 
 export const CardFooter: React.FC<CardFooterProps> = ({
-  footerBase = "border-t border-white/10 pt-2",
-  footerRest = "",
+  base = "border-t border-white/10 pt-2",
+  classes = "",
   children,
 }): React.ReactElement => {
-  return <footer className={`${footerBase} ${footerRest}`}>{children}</footer>;
+  return <footer className={`${base} ${classes}`}>{children}</footer>;
 };

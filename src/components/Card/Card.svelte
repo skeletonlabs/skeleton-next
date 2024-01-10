@@ -5,19 +5,19 @@
   interface CardProps {
     href: string;
     // Root
-    rootBase?: string;
-    rootBg?: string;
-    rootSpaceY?: string;
-    rootRest?: string;
+    base?: string;
+    bg?: string;
+    spaceY?: string;
+    classes?: string;
     // Title
     titleBase?: string;
-    titleRest?: string;
+    titleClasses?: string;
     // Article
     articleBase?: string;
-    articleRest?: string;
+    articleClasses?: string;
     // Footer
     footerBase?: string;
-    footerRest?: string;
+    footerClasses?: string;
     // Snippets
     title?: Snippet;
     article?: Snippet;
@@ -27,19 +27,19 @@
   let {
     href,
     // Root
-    rootBase = "card",
-    rootBg = "bg-slate-800",
-    rootSpaceY = 'space-y-2',
-    rootRest = "",
+    base = "card",
+    bg = "bg-slate-800",
+    spaceY = 'space-y-2',
+    classes = "",
     // Title
     titleBase = "h2",
-    titleRest = "",
+    titleClasses = "",
     // Article
     articleBase = "",
-    articleRest = "",
+    articleClasses = "",
     // Footer
     footerBase = "border-t border-white/10 pt-2",
-    footerRest = "",
+    footerClasses = "",
     // Snippets
     title,
     article,
@@ -49,19 +49,19 @@
 
 <!-- @component A simple card component. -->
 
-<a {href} class="{rootBase} {rootBg} {rootSpaceY} {rootRest}">
+<a {href} class="{base} {bg} {spaceY} {classes}">
   <!-- Title -->
   {#if title}
     <header>
-      <h2 class="{titleBase} {titleRest}">{@render title()}</h2>
+      <h2 class="{titleBase} {titleClasses}">{@render title()}</h2>
     </header>
   {/if}
   <!-- Article -->
   {#if article}
-    <article class="{articleBase} {articleRest}">{@render article()}</article>
+    <article class="{articleBase} {articleClasses}">{@render article()}</article>
   {/if}
   <!-- Footer -->
   {#if footer}
-    <footer class="{footerBase} {footerRest}">{@render footer()}</footer>
+    <footer class="{footerBase} {footerClasses}">{@render footer()}</footer>
   {/if}
 </a>

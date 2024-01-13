@@ -1,4 +1,5 @@
 <script lang="ts">
+    import type { Snippet } from 'svelte';
     import type { Action } from 'svelte/action';
 
     interface AvatarProps {
@@ -7,15 +8,15 @@
         actionParams?: string;
 
         // Root (figure)
-        rootBase?: string;
-        rootBg?: string;
-        rootText?: string;
-        rootFontWeight?: string;
-        rootWidth?: string;
-        rootBorder?: string;
-        rootRounded?: string;
-        rootShadow?: string;
-        rootRest?: string;
+        base?: string;
+        background?: string;
+        text?: string;
+        fontWeight?: string;
+        width?: string;
+        border?: string;
+        rounded?: string;
+        shadow?: string;
+        classes?: string;
 
         // Image
         imageSrc?: string;
@@ -23,12 +24,8 @@
         imageBase?: string;
         imageRest?: string;
 
-        // Initials
-        initialsText?: string;
-        initialsBase?: string;
-        initialsFill?: string;
-        initialsFontSize?: number;
-        initialsRest?: string;
+        // Snippets
+        children?: Snippet;
     }
 
     let {
@@ -37,13 +34,13 @@
         actionParams = "",
 
         // Root (figure)
-        rootBase = "overflow-hidden isolate",
-        rootBg = "bg-surface-400-500-token",
-        rootWidth = "w-16",
-        rootBorder = "",
-        rootRounded = "rounded-full",
-        rootShadow = "",
-        rootRest = "",
+        base = "overflow-hidden isolate",
+        background = "bg-surface-400-500-token",
+        width = "w-16",
+        border = "",
+        rounded = "rounded-full",
+        shadow = "",
+        classes = "",
 
         // Image
         imageBase = "w-full object-cover",
@@ -51,28 +48,18 @@
         imageAlt = "",
         imageRest = "",
 
-        // Initials
-        initialsText = "AB",
-        initialsBase = "w-full h-full",
-        initialsFill = "fill-token",
-        initialsFontSize = 150,
-        initialsRest = "",
+        // Snippets
+        children,
     } = $props<AvatarProps>();
 </script>
 
 {#snippet figure()}
-    <figure class="{rootBase} {rootBg} {rootWidth} {rootBorder} {rootRounded} {rootShadow} {rootRest}">
-        {#if imageSrc}
-            <!-- TODO: test moving actions to figure. -->
-            <img
-                class="{imageBase} {imageRest}" 
-                src={imageSrc} 
-                alt={imageAlt}
-                use:action={actionParams}
-            />
-        {:else}
+    <figure class="{base} {background} {width} {border} {rounded} {shadow} {classes}">
+        {#if children}
+        <!-- TODO: when Snippet types are implemented in svelte-5 check for type and if string provide an SVG with the text/initials -->
+            {@render children()}
             <!-- TODO: investigate a better approach using Tailwind. -->
-            <svg class="{initialsBase} {initialsRest}" viewBox="0 0 512 512">
+            <!-- <svg class="{initialsBase} {initialsRest}" viewBox="0 0 512 512">
                 <text
                     x="50%"
                     y="50%"
@@ -83,13 +70,21 @@
                     class="{initialsFill}">
                     {String(initialsText).substring(0, 2).toUpperCase()}
                 </text>
-            </svg>
+            </svg> -->
+        {:else}
+            <!-- TODO: test moving actions to figure. -->
+            <img
+                class="{imageBase} {imageRest}" 
+                src={imageSrc} 
+                alt={imageAlt}
+                use:action={actionParams}
+            />
         {/if}
     </figure>
 {/snippet}
 
 {#if href}
-    <a {href} class="{rootRounded}">
+    <a {href} class="{rounded}">
         {@render figure()}
     </a>
 {:else}

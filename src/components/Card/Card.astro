@@ -2,54 +2,54 @@
 interface Props {
   href: string;
   // Root
-  rootBase?: string;
-  rootBg?: string;
-  rootSpaceY?: string;
-  rootRest?: string;
+  base?: string;
+  bg?: string;
+  spaceY?: string;
+  classes?: string;
   // Title
   titleBase?: string;
-  titleRest?: string;
+  titleClasses?: string;
   // Article
   articleBase?: string;
-  articleRest?: string;
+  articleClasses?: string;
   // Footer
   footerBase?: string;
-  footerRest?: string;
+  footerClasses?: string;
 }
 
 const {
   href,
   // Root
-  rootBase = "card",
-  rootBg = "bg-slate-800",
-  rootSpaceY = "space-y-2",
-  rootRest = "",
+  base = "card",
+  bg = "bg-slate-800",
+  spaceY = "space-y-2",
+  classes = "",
   // Title
   titleBase = "h2",
-  titleRest = "",
+  titleClasses = "",
   // Article
   articleBase = "",
-  articleRest = "",
+  articleClasses = "",
   // Footer
   footerBase = "border-t border-white/10 pt-2",
-  footerRest = "",
+  footerClasses = "",
 } = Astro.props;
 ---
 
-<a {href} class:list={[rootBase, rootBg, rootSpaceY, rootRest]}>
+<a {href} class:list={[base, bg, spaceY, classes]}>
   <!-- Title -->
   <Fragment slot="title">
-    <h2 class:list={[titleBase, titleRest]}><slot name="title" /></h2>
+    <h2 class:list={[titleBase, titleClasses]}><slot name="title" /></h2>
   </Fragment>
   <!-- Article -->
   <Fragment slot="article">
-    <article class:list={[articleBase, articleRest]}>
+    <article class:list={[articleBase, articleClasses]}>
       <slot name="article" />
     </article>
   </Fragment>
   <!-- Footer -->
   <Fragment slot="footer">
-    <footer class:list={[footerBase, footerRest]}>
+    <footer class:list={[footerBase, footerClasses]}>
       <slot name="footer" />
     </footer>
   </Fragment>

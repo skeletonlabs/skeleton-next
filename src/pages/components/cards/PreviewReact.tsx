@@ -8,7 +8,7 @@ import {
 
 export const PreviewReact: React.FC = (): React.ReactElement => {
   return (
-    <CardReact href="https://react.dev/" rootBg="bg-blue-500">
+    <CardReact href="https://react.dev/" bg="bg-blue-500">
       <CardTitle>React Card Component</CardTitle>
       <CardArticle>The React component article.</CardArticle>
       <CardFooter>The React component footer.</CardFooter>

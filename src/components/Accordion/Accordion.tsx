@@ -4,47 +4,51 @@ import React, {
   createContext,
   useContext,
   useState,
+  useEffect,
   type Dispatch,
   type SetStateAction,
-  useEffect,
+  type ReactNode,
 } from "react";
+import { AnimationWrapper } from "@components/utils/AnimationWrapper.tsx";
+import { reactCompose } from "@components/utils/ReactCompose";
 
 interface AccordionProps extends React.PropsWithChildren {
   multiple?: boolean;
   // ---
-  rootBase?: string;
-  rootPadding?: string;
-  rootSpacingY?: string;
-  rootRounded?: string;
-  rootWidth?: string;
-  rootRest?: string;
+  base?: string;
+  padding?: string;
+  spaceY?: string;
+  rounded?: string;
+  width?: string;
+  classes?: string;
 }
 
 interface AccordionItemProps extends React.PropsWithChildren {
-  rootBase?: string;
-  rootSpacingY?: string;
-  rootRest?: string;
+  base?: string;
+  spaceY?: string;
+  classes?: string;
 }
 
 interface AccordionControlProps extends React.PropsWithChildren {
   controls: string;
   open?: boolean;
   disabled?: boolean;
-  // ---
-  controlBase?: string;
-  controlHover?: string;
-  controlPadding?: string;
-  controlRounded?: string;
-  controlRest?: string;
+  // Root
+  base?: string;
+  hover?: string;
+  padding?: string;
+  rounded?: string;
+  classes?: string;
+  // Slots
+  lead?: ReactNode;
 }
 
 interface AccordionPanelProps extends React.PropsWithChildren {
   id: string;
-  panelBase?: string;
-  panelPadding?: string;
-  panelRounded?: string;
-  panelRest?: string;
-  // panelAnimDuration?: number;
+  base?: string;
+  padding?: string;
+  rounded?: string;
+  classes?: string;
 }
 
 // Context ---
@@ -56,7 +60,7 @@ interface AccordionContextState {
   setAllowMultiple: Dispatch<SetStateAction<boolean>>;
 }
 
-export const AccordionContext = createContext<AccordionContextState>({
+const AccordionContext = createContext<AccordionContextState>({
   selected: [],
   setSelected: () => {},
   allowMultiple: false,
@@ -64,15 +68,15 @@ export const AccordionContext = createContext<AccordionContextState>({
 });
 
 /** Component: An Accordion child element. */
-export const Accordion: React.FC<AccordionProps> = ({
+const AccordionRoot: React.FC<AccordionProps> = ({
   multiple = false,
   // Root
-  rootBase = "",
-  rootPadding = "",
-  rootSpacingY = "space-y-1",
-  rootRounded = "rounded",
-  rootWidth = "w-full",
-  rootRest = "",
+  base = "",
+  padding = "",
+  spaceY = "space-y-1",
+  rounded = "rounded",
+  width = "w-full",
+  classes = "",
   // Children
   children,
 }): React.ReactElement => {
@@ -81,7 +85,7 @@ export const Accordion: React.FC<AccordionProps> = ({
 
   return (
     <div
-      className={`${rootBase} ${rootPadding} ${rootSpacingY} ${rootRounded} ${rootWidth} ${rootRest}`}
+      className={`${base} ${padding} ${spaceY} ${rounded} ${width} ${classes}`}
       data-testid="accordion"
     >
       <AccordionContext.Provider
@@ -99,16 +103,16 @@ export const Accordion: React.FC<AccordionProps> = ({
 };
 
 /** Component: An Accordion child element. */
-export const AccordionItem: React.FC<AccordionItemProps> = ({
-  rootBase = "",
-  rootSpacingY = "",
-  rootRest = "",
+const AccordionItem: React.FC<AccordionItemProps> = ({
+  base = "",
+  spaceY = "",
+  classes = "",
   // Children
   children,
 }): React.ReactElement => {
   return (
     <div
-      className={`${rootBase} ${rootSpacingY} ${rootRest}`}
+      className={`${base} ${spaceY} ${classes}`}
       data-testid="accordion-item"
     >
       {children}
@@ -116,17 +120,18 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
   );
 };
 
-export const AccordionControl: React.FC<AccordionControlProps> = ({
+const AccordionControl: React.FC<AccordionControlProps> = ({
   controls,
   open = false,
   disabled = false,
   // Control
-  controlBase = "flex text-start items-center space-x-4 w-full",
-  controlHover = "hover:bg-white/5",
-  controlPadding = "py-2 px-4",
-  controlRounded = "rounded",
-  controlRest = "",
+  base = "flex text-start items-center space-x-4 w-full",
+  hover = "hover:bg-white/5",
+  padding = "py-2 px-4",
+  rounded = "rounded",
+  classes = "",
   // Children
+  lead,
   children,
 }): React.ReactElement => {
   let ctx = useContext<AccordionContextState>(AccordionContext);
@@ -151,12 +156,14 @@ export const AccordionControl: React.FC<AccordionControlProps> = ({
   return (
     <button
       type="button"
-      className={`${controlBase} ${controlHover} ${controlPadding} ${controlRounded} ${controlRest}`}
+      className={`${base} ${hover} ${padding} ${rounded} ${classes}`}
       aria-expanded={ctx.selected.includes(controls)}
       aria-controls={`accordion-panel-${controls}`}
       onClick={onclick}
       disabled={disabled}
     >
+      {/* Lead */}
+      {lead && <div>{lead}</div>}
       {/* Content */}
       <div className="flex-1">{children}</div>
       {/* State Indicator */}
@@ -165,14 +172,13 @@ export const AccordionControl: React.FC<AccordionControlProps> = ({
   );
 };
 
-export const AccordionPanel: React.FC<AccordionPanelProps> = ({
+const AccordionPanel: React.FC<AccordionPanelProps> = ({
   id,
   // Panel
-  panelBase = "",
-  panelPadding = "py-2 px-4",
-  panelRounded = "",
-  panelRest = "",
-  // panelAnimDuration = 200,
+  base = "",
+  padding = "py-2 px-4",
+  rounded = "",
+  classes = "",
   // Children
   children,
 }): React.ReactElement => {
@@ -184,13 +190,19 @@ export const AccordionPanel: React.FC<AccordionPanelProps> = ({
       aria-hidden={ctx.selected.includes(id)}
       aria-labelledby={id}
     >
-      {ctx.selected.includes(id) && (
-        <div
-          className={`${panelBase} ${panelPadding} ${panelRounded} ${panelRest}`}
-        >
+      <AnimationWrapper show={ctx.selected.includes(id)}>
+        <div className={`${base} ${padding} ${rounded} ${classes}`}>
           {children}
         </div>
-      )}
+      </AnimationWrapper>
+      {/* NOTE: AnimationWrapper replaces: */}
+      {/* {ctx.selected.includes(id) && ( ... )} */}
     </div>
   );
 };
+
+export const Accordion = reactCompose(AccordionRoot, {
+  Item: AccordionItem,
+  Control: AccordionControl,
+  Panel: AccordionPanel,
+});

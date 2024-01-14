@@ -55,7 +55,7 @@
 </script>
 
 {#snippet figure()}
-    <figure class="{base}{background} {width} {font} {border} {rounded} {shadow} {classes}" use:action={actionParams}>
+    <figure class="{base} {background} {width} {font} {border} {rounded} {shadow} {classes}" use:action={actionParams}>
         {#if imageSrc}
             <img
                 class="{imageBase} {imageRest}" 
